@@ -378,6 +378,36 @@
           "type": "iframe"
         }
       ]
+    },
+    {
+      "id": "portal-driveu7",
+      "name": "Drive U-7 (Unblocked Games G+)",
+      "badge": "Google Sites · Corrida, Esportes, Ação e mais",
+      "color": "#34d399",
+      "description": "Site Google Sites 'Unblocked Games G+' (drive-u-7-home): jogos de corrida, esportes, ação, terror e simuladores otimizados para Chromebook e redes escolares.",
+      "credit": "Unblocked Games G+ (Drive U-7)",
+      "mirrors": [
+        {
+          "label": "Drive U-7 · Página Inicial (Google Sites)",
+          "url": "https://sites.google.com/view/drive-u-7-home",
+          "type": "iframe"
+        },
+        {
+          "label": "Drive U-7 · Jogos Novos",
+          "url": "https://sites.google.com/view/drive-u-7-home/new-games",
+          "type": "iframe"
+        },
+        {
+          "label": "Drive U-7 · Jogos de Corrida",
+          "url": "https://sites.google.com/view/drive-u-7-home/driving-games",
+          "type": "iframe"
+        },
+        {
+          "label": "Drive U-7 · Jogos Flash",
+          "url": "https://sites.google.com/view/drive-u-7-home/flash-games",
+          "type": "iframe"
+        }
+      ]
     }
   ],
   "credits": [
@@ -452,6 +482,15 @@
       "color": "#818cf8",
       "url": "https://blogpaste.online/games",
       "notes": "Jogos hospedados no repositório yellowdevelopment/night e servidos via CDN com os mirrors do portal, abertos em about:blank disfarçado."
+    },
+    {
+      "name": "Drive U-7 (Unblocked Games G+)",
+      "role": "Catálogo Google Sites de jogos unblocked para Chromebook",
+      "authors": "Unblocked Games G+",
+      "countLabel": "52 jogos novos integrados + 24 fontes extras",
+      "color": "#34d399",
+      "url": "https://sites.google.com/view/drive-u-7-home",
+      "notes": "Seleção de corrida, esportes, ação e simuladores do site drive-u-7-home, abertos em about:blank disfarçado."
     }
   ]
 }
