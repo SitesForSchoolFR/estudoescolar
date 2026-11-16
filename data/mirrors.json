@@ -353,6 +353,31 @@
           "type": "iframe"
         }
       ]
+    },
+    {
+      "id": "portal-night",
+      "name": "Night.Games (BlogPaste)",
+      "badge": "586 jogos · Unity, Ports, Flash, GB/GBA e mais",
+      "color": "#818cf8",
+      "description": "Catálogo Night.Games servido pela página BlogPaste/InvaderX: centenas de jogos Unity, ports, Flash, Game Boy, Scratch e Pico-8 hospedados no GitHub (yellowdevelopment/night) via CDN.",
+      "credit": "yellowdevelopment (Night.Games) & BlogPaste/InvaderX (YLADevs)",
+      "mirrors": [
+        {
+          "label": "BlogPaste Games (página original)",
+          "url": "https://blogpaste.online/games",
+          "type": "iframe"
+        },
+        {
+          "label": "InvaderX (app BlogPaste)",
+          "url": "https://invaderx.blogpaste.online/",
+          "type": "iframe"
+        },
+        {
+          "label": "Night.Games (Vercel)",
+          "url": "https://usenight.vercel.app/",
+          "type": "iframe"
+        }
+      ]
     }
   ],
   "credits": [
@@ -418,6 +443,15 @@
       "color": "#6366f1",
       "notes": "Todo o mérito artístico pertence aos criadores originais. Sempre que puder, apoie os desenvolvedores adquirindo as versões oficiais de seus jogos.",
       "url": ""
+    },
+    {
+      "name": "Night.Games (BlogPaste/InvaderX)",
+      "role": "Catálogo de jogos Unity, Ports, Flash, GB/GBA, Scratch e Pico-8",
+      "authors": "yellowdevelopment (Night.Games) & YLADevs/BlogPaste",
+      "countLabel": "336 jogos novos integrados + 249 mirrors extras",
+      "color": "#818cf8",
+      "url": "https://blogpaste.online/games",
+      "notes": "Jogos hospedados no repositório yellowdevelopment/night e servidos via CDN com os mirrors do portal, abertos em about:blank disfarçado."
     }
   ]
 }

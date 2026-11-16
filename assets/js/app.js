@@ -8,7 +8,7 @@ let settings={...DEFAULTS}; try{Object.assign(settings,JSON.parse(localStorage.g
 let games=[],mirrors=null,collection='todos',query='',shown=60,currentGame=null,lbSort='xp';
 const COLLECTIONS=[
  {id:'todos',icon:'🎮',label:'Todos os Jogos'},{id:'famosos',icon:'🔥',label:'Famosos'},{id:'favoritos',icon:'❤️',label:'Favoritos'},{id:'joias',icon:'💎',label:'Joias Escondidas'},{id:'recentes',icon:'🕘',label:'Recentes'},{id:'ports',icon:'🖥️',label:'Ports de PC/Console'},{id:'acao',icon:'⚔️',label:'Ação'},{id:'corrida-esportes',icon:'🏎️',label:'Corrida & Esportes'},{id:'plataforma',icon:'🍄',label:'Plataforma'},{id:'estrategia',icon:'🧠',label:'Estratégia'},{id:'terror',icon:'👻',label:'Terror'},{id:'ritmo',icon:'🎵',label:'Ritmo / FNF'},{id:'retro',icon:'👾',label:'Retrô'},{id:'multiplayer',icon:'👥',label:'Multiplayer'},{id:'mundos',icon:'🌍',label:'Mundos Abertos'}];
-const SOURCES={'gn-math':'GN-Math','gn-math-v2':'GN-Math v2',duckmath:'DuckMath',p2p:'P2P · WebSight',ported2browser:'Ported2Browser'};
+const SOURCES={'gn-math':'GN-Math','gn-math-v2':'GN-Math v2',duckmath:'DuckMath',p2p:'P2P · WebSight',ported2browser:'Ported2Browser',night:'🌙 Night.Games'};
 function saveSettings(){localStorage.setItem('ee_settings_v1',JSON.stringify(settings))}
 function toast(msg,type='info'){const t=document.createElement('div');t.className='toast '+type;t.textContent=msg;$('#toasts').appendChild(t);requestAnimationFrame(()=>t.classList.add('show'));setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),300)},3600)}
 window.UI={toast,showPopupBlockedPrompt(opts){const m=$('#popup-modal');m.hidden=false;$('#popup-open-btn').onclick=()=>{m.hidden=true;GameLauncher.launchRawOption(opts)}}};
