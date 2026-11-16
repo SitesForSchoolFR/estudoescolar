@@ -128,7 +128,7 @@
     const all = [...expandUrlCandidates(game.u, game.m || 'html')];
     if (Array.isArray(game.au)) {
       for (const alt of game.au) {
-        const altMode = (alt.startsWith('{DM1}/') || alt.startsWith('{DM2}/')) ? 'iframe' : 'html';
+        const altMode = (alt.startsWith('{DM1}/') || alt.startsWith('{DM2}/') || game.m === 'iframe') ? 'iframe' : 'html';
         for (const c of expandUrlCandidates(alt, altMode)) {
           if (!all.some(x => x.url === c.url)) all.push(c);
         }
