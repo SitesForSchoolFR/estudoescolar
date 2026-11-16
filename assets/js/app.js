@@ -7,8 +7,8 @@ const DEFAULTS={theme:'neon',accent:'#6366f1',accent2:'#22d3ee',bgMode:'constell
 let settings={...DEFAULTS}; try{Object.assign(settings,JSON.parse(localStorage.getItem('ee_settings_v1')||'{}'))}catch(e){}
 let games=[],mirrors=null,collection='todos',query='',shown=60,currentGame=null,lbSort='xp';
 const COLLECTIONS=[
- {id:'todos',icon:'🎮',label:'Todos os Jogos'},{id:'famosos',icon:'🔥',label:'Famosos'},{id:'favoritos',icon:'❤️',label:'Favoritos'},{id:'joias',icon:'💎',label:'Joias Escondidas'},{id:'recentes',icon:'🕘',label:'Recentes'},{id:'ports',icon:'🖥️',label:'Ports de PC/Console'},{id:'acao',icon:'⚔️',label:'Ação'},{id:'corrida-esportes',icon:'🏎️',label:'Corrida & Esportes'},{id:'plataforma',icon:'🍄',label:'Plataforma'},{id:'estrategia',icon:'🧠',label:'Estratégia'},{id:'terror',icon:'👻',label:'Terror'},{id:'ritmo',icon:'🎵',label:'Ritmo / FNF'},{id:'retro',icon:'👾',label:'Retrô'},{id:'multiplayer',icon:'👥',label:'Multiplayer'},{id:'mundos',icon:'🌍',label:'Mundos Abertos'}];
-const SOURCES={'gn-math':'GN-Math','gn-math-v2':'GN-Math v2',duckmath:'DuckMath',p2p:'P2P · WebSight',ported2browser:'Ported2Browser',night:'🌙 Night.Games'};
+ {id:'night',icon:'📝',label:'BlogPaste'},{id:'todos',icon:'🎮',label:'Todos os Jogos'},{id:'famosos',icon:'🔥',label:'Famosos'},{id:'favoritos',icon:'❤️',label:'Favoritos'},{id:'joias',icon:'💎',label:'Joias Escondidas'},{id:'recentes',icon:'🕘',label:'Recentes'},{id:'ports',icon:'🖥️',label:'Ports de PC/Console'},{id:'acao',icon:'⚔️',label:'Ação'},{id:'corrida-esportes',icon:'🏎️',label:'Corrida & Esportes'},{id:'plataforma',icon:'🍄',label:'Plataforma'},{id:'estrategia',icon:'🧠',label:'Estratégia'},{id:'terror',icon:'👻',label:'Terror'},{id:'ritmo',icon:'🎵',label:'Ritmo / FNF'},{id:'retro',icon:'👾',label:'Retrô'},{id:'multiplayer',icon:'👥',label:'Multiplayer'},{id:'mundos',icon:'🌍',label:'Mundos Abertos'}];
+const SOURCES={night:'📝 BlogPaste (Night.Games)',mantle:'⭐ Mantle · Mineral','gn-math':'GN-Math','gn-math-v2':'GN-Math v2',duckmath:'DuckMath',p2p:'P2P · WebSight',ported2browser:'Ported2Browser'};
 function saveSettings(){localStorage.setItem('ee_settings_v1',JSON.stringify(settings))}
 function toast(msg,type='info'){const t=document.createElement('div');t.className='toast '+type;t.textContent=msg;$('#toasts').appendChild(t);requestAnimationFrame(()=>t.classList.add('show'));setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),300)},3600)}
 window.UI={toast,showPopupBlockedPrompt(opts){const m=$('#popup-modal');m.hidden=false;$('#popup-open-btn').onclick=()=>{m.hidden=true;GameLauncher.launchRawOption(opts)}}};
@@ -72,7 +72,7 @@ function renderHero(){
 function renderNav(){
  $('#collections-nav').innerHTML=COLLECTIONS.map(c=>`<button class="nav-item ${collection===c.id?'active':''}" data-col="${c.id}">${c.icon} ${c.label} <span>${countFor(c.id)}</span></button>`).join('')+`<div class="nav-sep">Fontes</div>`+Object.entries(SOURCES).map(([id,l])=>`<button class="nav-item ${collection===id?'active':''}" data-col="${id}">📚 ${l} <span>${games.filter(g=>g.s.includes(id)).length}</span></button>`).join('')+`<button class="nav-item ${collection==='portais'?'active':''}" data-col="portais">🌐 Portais & Mirrors <span>${mirrors?mirrors.portals.length:5}</span></button>`;
 }
-function countFor(id){if(id==='todos')return games.length;if(id==='favoritos')return ProfileStore.get().favorites.length;if(id==='recentes')return ProfileStore.get().recents.length;return games.filter(g=>g.k.includes(id)).length}
+function countFor(id){if(SOURCES[id])return games.filter(g=>g.s.includes(id)).length;if(id==='todos')return games.length;if(id==='favoritos')return ProfileStore.get().favorites.length;if(id==='recentes')return ProfileStore.get().recents.length;return games.filter(g=>g.k.includes(id)).length}
 function openGame(g){
  currentGame=g;
  $('#game-modal').hidden=false;
