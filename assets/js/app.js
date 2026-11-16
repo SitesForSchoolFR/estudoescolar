@@ -81,7 +81,7 @@ function openGame(g){
  $('#modal-meta').innerHTML=`<span class="badge">${g.s.map(s=>SOURCES[s]||s).join(' · ')}</span>${g.a?`<span class="badge">✍️ ${esc(g.a)}</span>`:''}<span class="badge">⭐ Popularidade ${g.p||0}</span>`;
  $('#modal-controls').textContent=g.ct||'Mouse e teclado / toque na tela, conforme o jogo.';
  const cands=GameLauncher.buildGameCandidates(g);
- $('#modal-mirrors').innerHTML=cands.map((c,i)=>`<option value="${i}">${esc(c.label)}</option>`).join('');
+ $('#modal-mirrors').innerHTML=cands.map((c,i)=>`<option value="${i}">Servidor ${i+1}${c.type==='iframe'?' · web':' · app'}</option>`).join('');
  $('#modal-fav').textContent=ProfileStore.isFavorite(g.id)?'❤️ Nos Favoritos':'🤍 Adicionar aos Favoritos';
 }
 function renderProfile(){

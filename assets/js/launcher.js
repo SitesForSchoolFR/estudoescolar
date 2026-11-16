@@ -200,6 +200,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
 <title>${safeTitle}</title>
 <link rel="icon" href="${safeIcon}">
 <style>
@@ -222,6 +223,7 @@
   #hud.collapsed .hud-body{display:none}
   #hud.faded{opacity:.22}
   #hud:hover{opacity:1}
+  .hfake{display:inline-flex;align-items:center;background:rgba(34,197,94,.14);border:1px solid rgba(34,197,94,.35);color:#86efac;border-radius:999px;padding:4px 10px;font-size:11px;font-weight:600;white-space:nowrap;max-width:230px;overflow:hidden;text-overflow:ellipsis}
   .hud-body{display:flex;align-items:center;gap:5px}
   .hbtn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:#e2e8f0;border-radius:999px;padding:4px 9px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .15s}
   .hbtn:hover{background:rgba(99,102,241,.35);border-color:rgba(99,102,241,.6)}
@@ -236,7 +238,7 @@
 </style>
 </head>
 <body>
-  <iframe id="game-iframe" allow="autoplay; fullscreen; gamepad; pointer-lock; clipboard-read; clipboard-write; accelerometer; gyroscope; midi" allowfullscreen></iframe>
+  <iframe id="game-iframe" referrerpolicy="no-referrer" allow="autoplay; fullscreen; gamepad; pointer-lock; clipboard-read; clipboard-write; accelerometer; gyroscope; midi" allowfullscreen></iframe>
 
   <div id="loader">
     <div class="lcard">
@@ -254,6 +256,7 @@
   <div id="hud">
     <button class="hbtn" id="hud-toggle" title="Minimizar/Expandir barra">☰</button>
     <div class="hud-body">
+      <span class="hfake" id="fake-url" title="Endereço de disfarce exibido nesta aba">🔒 win10bet.windows/core</span>
       <select class="hsel" id="mirror-sel" title="Trocar servidor/CDN"></select>
       <button class="hbtn" id="hud-reload" title="Recarregar jogo">↻</button>
       <button class="hbtn" id="hud-fs" title="Tela cheia">⛶ Tela Cheia</button>
@@ -291,10 +294,17 @@
   gtitle.textContent = CFG.gameName;
   if (!CFG.showHud) hud.style.display = 'none';
 
+  // DISGUISE: never display the real host/URL anywhere in this tab.
+  // Servers get generic names and the HUD shows a fake, non-existent address.
+  let _h = 0; for (const ch of CFG.gameName) _h = ((_h * 31) + ch.charCodeAt(0)) >>> 0;
+  const fakeEl = document.getElementById('fake-url');
+  if (fakeEl) fakeEl.textContent = '🔒 win10bet.windows/core/aula-' + (_h % 9000 + 1000);
+  const serverName = (idx) => 'Servidor ' + (idx + 1);
+
   CFG.candidates.forEach((c, idx) => {
     const opt = document.createElement('option');
     opt.value = String(idx);
-    opt.textContent = (idx + 1) + '. ' + c.label;
+    opt.textContent = serverName(idx) + (c.type === 'iframe' ? ' · web' : ' · app');
     sel.appendChild(opt);
   });
 
@@ -336,6 +346,7 @@
   function resetFrame() {
     const nf = document.createElement('iframe');
     nf.id = 'game-iframe';
+    nf.setAttribute('referrerpolicy', 'no-referrer');
     nf.setAttribute('allow', 'autoplay; fullscreen; gamepad; pointer-lock; clipboard-read; clipboard-write; accelerometer; gyroscope; midi');
     nf.setAttribute('allowfullscreen', '');
     frame.replaceWith(nf);
@@ -375,7 +386,7 @@
     dlBtn.style.display = 'none';
     lastPreparedHtml = '';
     pfill.style.width = '24%';
-    lstatus.textContent = 'Conectando via ' + cand.label + '...';
+    lstatus.textContent = 'Conectando via ' + serverName(curIdx) + '...';
 
     const nf = resetFrame();
 
@@ -424,6 +435,41 @@
       pfill.style.width = '0%';
       lactions.style.display = 'flex';
     } else {
+      loadStealthFirst(nf, cand);
+    }
+  }
+
+  // STEALTH MODE: fetch the page and inject it via srcdoc, so the frame's own
+  // URL is "about:srcdoc" and the real host never appears as the frame address,
+  // in the tab, or anywhere in the UI. If the site cannot run injected
+  // (Service Worker / WebGPU / SharedArrayBuffer / CORS), fall back to direct.
+  async function loadStealthFirst(nf, cand) {
+    pfill.style.width = '46%';
+    lstatus.textContent = 'Abrindo em modo disfarçado (about:blank)...';
+    try {
+      const raw = await fetchWithTimeout(cand.url, 12000);
+      if (!/<(html|head|body|div|canvas|script)/i.test(raw)) throw new Error('not html');
+      const ready = prepareHtml(raw, cand.url);
+      lastPreparedHtml = ready;
+      dlBtn.style.display = 'inline-block';
+      nf.removeAttribute('src');
+      nf.srcdoc = ready;
+      pfill.style.width = '82%';
+      finishLoad();
+      setTimeout(() => {
+        try {
+          const d = nf.contentDocument;
+          if (!d || !d.body) return;
+          const txt = (d.body.innerText || '').slice(0, 600);
+          const hasContent = !!d.querySelector('canvas, iframe, img, video, svg, button, input, [id], [class]');
+          const broke = /sharedarraybuffer|service ?worker|cross-origin isolat|failed to load|error occurred|not supported in this browser/i.test(txt);
+          if (broke || (!hasContent && txt.trim().length < 3)) {
+            const nf2 = resetFrame();
+            loadIframeDirect(nf2, cand);
+          }
+        } catch (_) {}
+      }, 5000);
+    } catch (_) {
       loadIframeDirect(nf, cand);
     }
   }
@@ -431,7 +477,7 @@
   function loadIframeDirect(nf, cand) {
     let settled = false;
     pfill.style.width = '68%';
-    lstatus.textContent = 'Abrindo ' + cand.label + ' no iframe...';
+    lstatus.textContent = 'Abrindo ' + serverName(curIdx) + ' no iframe about:blank...';
     const fallbackTimer = setTimeout(() => {
       if (!settled) { settled = true; finishLoad(); }
     }, 3200);
