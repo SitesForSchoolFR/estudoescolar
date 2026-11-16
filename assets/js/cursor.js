@@ -7,11 +7,11 @@
   'use strict';
 
   const SVG_SHAPES = {
-    neon: `<svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="3.4" fill="var(--accent-2)"/><circle cx="14" cy="14" r="5.5" fill="var(--accent)" opacity="0.3"/></svg>`,
-    pixel: `<svg viewBox="0 0 24 24" shape-rendering="crispEdges"><path d="M3 2h2v2h2v2h2v2h2v2h2v2h2v2h-5v2h2v4h-3v-4H7v2H5v2H3V2z" fill="var(--accent)" stroke="#fff" stroke-width="1.4"/></svg>`,
-    sword: `<svg viewBox="0 0 28 28" fill="none"><path d="M4 4l13 5-3.5 3.5 7.5 7.5-2 2-7.5-7.5L8 18 4 4z" fill="var(--accent-2)" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/><circle cx="21" cy="21" r="2" fill="var(--accent)"/></svg>`,
-    comet: `<svg viewBox="0 0 28 28" fill="none"><path d="M14 2l3.1 7.6 8.2.7-6.2 5.4 1.9 8-7-4.3-7 4.3 1.9-8-6.2-5.4 8.2-.7L14 2z" fill="var(--accent-2)" stroke="var(--accent)" stroke-width="1.4" stroke-linejoin="round"/></svg>`,
-    crosshair: `<svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="7.5" stroke="var(--accent-2)" stroke-width="1.6"/><path d="M14 2v6M14 20v6M2 14h6M20 14h6" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/><circle cx="14" cy="14" r="1.8" fill="#fff"/></svg>`,
+    neon: `<svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="3.4" style="fill:var(--accent-2)"/><circle cx="14" cy="14" r="5.5" style="fill:var(--accent)" opacity="0.3"/></svg>`,
+    pixel: `<svg viewBox="0 0 24 24" shape-rendering="crispEdges"><path d="M3 2h2v2h2v2h2v2h2v2h2v2h2v2h-5v2h2v4h-3v-4H7v2H5v2H3V2z" style="fill:var(--accent)" stroke="#fff" stroke-width="1.4"/></svg>`,
+    sword: `<svg viewBox="0 0 28 28" fill="none"><path d="M4 4l13 5-3.5 3.5 7.5 7.5-2 2-7.5-7.5L8 18 4 4z" style="fill:var(--accent-2)" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/><circle cx="21" cy="21" r="2" style="fill:var(--accent)"/></svg>`,
+    comet: `<svg viewBox="0 0 28 28" fill="none"><path d="M14 2l3.1 7.6 8.2.7-6.2 5.4 1.9 8-7-4.3-7 4.3 1.9-8-6.2-5.4 8.2-.7L14 2z" style="fill:var(--accent-2);stroke:var(--accent)" stroke-width="1.4" stroke-linejoin="round"/></svg>`,
+    crosshair: `<svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="7.5" style="stroke:var(--accent-2)" stroke-width="1.6"/><path d="M14 2v6M14 20v6M2 14h6M20 14h6" style="stroke:var(--accent)" stroke-width="1.8" stroke-linecap="round"/><circle cx="14" cy="14" r="1.8" fill="#fff"/></svg>`,
     duck: `<svg viewBox="0 0 28 28" fill="none"><circle cx="12" cy="11" r="6.5" fill="#fbbf24" stroke="#78350f" stroke-width="1.2"/><ellipse cx="14.5" cy="19" rx="8" ry="5.5" fill="#f59e0b" stroke="#78350f" stroke-width="1.2"/><path d="M6 11.5l-4 1.5 4 1.8z" fill="#f97316" stroke="#78350f" stroke-width="0.9"/><circle cx="10.2" cy="9.8" r="1.3" fill="#0f172a"/></svg>`,
     pencil: `<svg viewBox="0 0 28 28" fill="none"><path d="M4 4l4 10 11 11 6-6L14 8 4 4z" fill="#fbbf24" stroke="#0f172a" stroke-width="1.3" stroke-linejoin="round"/><path d="M4 4l2.4 6 3.6-3.6L4 4z" fill="#1e293b"/><path d="M19 25l6-6-2.5-2.5-6 6L19 25z" fill="#f472b6" stroke="#0f172a" stroke-width="1.1"/></svg>`
   };
@@ -73,6 +73,7 @@
   }
 
   function loop() {
+    rafId = requestAnimationFrame(loop);
     if (!isTouch && cfg.style !== 'default' && pos.visible && !document.body.classList.contains('panic-active')) {
       pos.rx += (pos.x - pos.rx) * 0.22;
       pos.ry += (pos.y - pos.ry) * 0.22;
@@ -83,9 +84,10 @@
       const pressScale = pos.down ? 0.84 : (pos.hover ? 1.12 : 1);
       const dotSize = DOT_SIZE * cfg.scale * pressScale;
       dotEl.style.opacity = '1';
+      dotEl.style.display = 'block';
       dotEl.style.width = dotSize.toFixed(1) + 'px';
       dotEl.style.height = dotSize.toFixed(1) + 'px';
-      dotEl.style.transform = `translate3d(${pos.rx.toFixed(1)}px, ${pos.ry.toFixed(1)}px, 0) translate(-${px}%, -${py}%)`;
+      dotEl.style.transform = `translate3d(${(pos.rx - dotSize * px / 100).toFixed(1)}px, ${(pos.ry - dotSize * py / 100).toFixed(1)}px, 0)`;
 
       if (ringEl.style.display !== 'none') {
         const ringSize = (pos.down ? 24 : (pos.hover ? 40 : RING_SIZE)) * cfg.scale;
@@ -96,7 +98,6 @@
         ringEl.classList.toggle('is-hover', pos.hover);
       }
     }
-    rafId = requestAnimationFrame(loop);
   }
 
   global.CursorEngine = {
