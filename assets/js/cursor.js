@@ -77,19 +77,22 @@
       pos.rx += (pos.x - pos.rx) * 0.22;
       pos.ry += (pos.y - pos.ry) * 0.22;
 
-      const [ox, oy] = HOTSPOTS[cfg.style] || [-14, -14];
-      const pressScale = pos.down ? 0.84 : (pos.hover ? 1.14 : 1);
-      const s = (cfg.scale * pressScale).toFixed(3);
+      // Dot AND ring share the exact same smoothed coordinates (pos.rx/ry),
+      // so the ring is always perfectly centered on the dot.
+      const [px, py] = HOTSPOTS[cfg.style] || [50, 50];
+      const pressScale = pos.down ? 0.84 : (pos.hover ? 1.12 : 1);
+      const dotSize = DOT_SIZE * cfg.scale * pressScale;
       dotEl.style.opacity = '1';
-      dotEl.style.transform = `translate3d(${(pos.x + ox * cfg.scale).toFixed(1)}px, ${(pos.y + oy * cfg.scale).toFixed(1)}px, 0) scale(${s})`;
+      dotEl.style.width = dotSize.toFixed(1) + 'px';
+      dotEl.style.height = dotSize.toFixed(1) + 'px';
+      dotEl.style.transform = `translate3d(${pos.rx.toFixed(1)}px, ${pos.ry.toFixed(1)}px, 0) translate(-${px}%, -${py}%)`;
 
       if (ringEl.style.display !== 'none') {
-        const ringSize = pos.down ? 26 : (pos.hover ? 46 : 34);
-        const half = (ringSize * cfg.scale) / 2;
-        ringEl.style.width = (ringSize * cfg.scale) + 'px';
-        ringEl.style.height = (ringSize * cfg.scale) + 'px';
+        const ringSize = (pos.down ? 24 : (pos.hover ? 40 : RING_SIZE)) * cfg.scale;
+        ringEl.style.width = ringSize.toFixed(1) + 'px';
+        ringEl.style.height = ringSize.toFixed(1) + 'px';
         ringEl.style.opacity = pos.hover ? '0.9' : '0.52';
-        ringEl.style.transform = `translate3d(${(pos.rx - half).toFixed(1)}px, ${(pos.ry - half).toFixed(1)}px, 0)`;
+        ringEl.style.transform = `translate3d(${pos.rx.toFixed(1)}px, ${pos.ry.toFixed(1)}px, 0) translate(-50%, -50%)`;
         ringEl.classList.toggle('is-hover', pos.hover);
       }
     }
