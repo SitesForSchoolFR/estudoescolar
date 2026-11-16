@@ -303,9 +303,68 @@
           "type": "iframe"
         }
       ]
+    },
+    {
+      "id": "portal-mantle",
+      "name": "Mantle Menu (Mineral)",
+      "badge": "Mineral · Basalt · Vent · Slate",
+      "color": "#22d3ee",
+      "description": "Menu do dobberr com Mineral (Minecraft Java no navegador via WebGPU), Basalt (FPS), Vent (Among Us web) e Slate (IA). O Mineral é o destaque: github.io/min/ e mineral.surge.sh.",
+      "credit": "dobberr & Equipe Mantle (projeto Horizon)",
+      "mirrors": [
+        {
+          "label": "Mantle Menu · GitHub Pages (original)",
+          "url": "https://dobberr.github.io/mantle-menu/",
+          "type": "iframe"
+        },
+        {
+          "label": "Mantle Menu · Cloudflare Pages",
+          "url": "https://mantle-menu.pages.dev",
+          "type": "iframe"
+        },
+        {
+          "label": "Mantle Menu · Workers",
+          "url": "https://mantle-menu.mantleunblocked.workers.dev",
+          "type": "iframe"
+        },
+        {
+          "label": "Mantle Menu · Helpdesk Mirror",
+          "url": "https://helpdesk.sentinet.co.za",
+          "type": "iframe"
+        },
+        {
+          "label": "Mantle Menu · Noah's Tutoring Mirror",
+          "url": "https://noahstutoring.academy",
+          "type": "iframe"
+        },
+        {
+          "label": "Mantle Menu · Google Sites",
+          "url": "https://sites.google.com/view/mantle-menu",
+          "type": "iframe"
+        },
+        {
+          "label": "⭐ Mineral Direto · GitHub (dobberr/min)",
+          "url": "https://dobberr.github.io/min/",
+          "type": "iframe"
+        },
+        {
+          "label": "⭐ Mineral Direto · Surge Mirror",
+          "url": "https://mineral.surge.sh/",
+          "type": "iframe"
+        }
+      ]
     }
   ],
   "credits": [
+    {
+      "name": "Mantle / Mineral (dobberr)",
+      "role": "Minecraft Java no navegador (WebGPU), FPS Basalt, Vent e o Mantle Menu",
+      "authors": "dobberr & Equipe Mantle · Projeto Horizon (horizon-rust)",
+      "countLabel": "4 apps integrados + portal com 8 links/mirrors",
+      "color": "#22d3ee",
+      "url": "https://github.com/dobberr/min",
+      "notes": "Mineral roda Minecraft: Java Edition via Rust/WebAssembly/WebGPU (dobberr.github.io/min/ e mineral.surge.sh). Mantle Menu reúne Mineral, Basalt, Vent e Slate em mirrors pages.dev, workers.dev, sentinet.co.za, noahstutoring.academy e Google Sites."
+    },
     {
       "name": "DuckMath",
       "role": "Catálogo HTML5, Unity, Flash & CloudFront Mirrors",
