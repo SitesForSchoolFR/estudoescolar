@@ -16,16 +16,20 @@
     pencil: `<svg viewBox="0 0 28 28" fill="none"><path d="M4 4l4 10 11 11 6-6L14 8 4 4z" fill="#fbbf24" stroke="#0f172a" stroke-width="1.3" stroke-linejoin="round"/><path d="M4 4l2.4 6 3.6-3.6L4 4z" fill="#1e293b"/><path d="M19 25l6-6-2.5-2.5-6 6L19 25z" fill="#f472b6" stroke="#0f172a" stroke-width="1.1"/></svg>`
   };
 
-  // Hotspot alignment offsets (px) so clicks feel razor-accurate
+  // Hotspot alignment as % of the cursor box, so the click point of each
+  // shape lands exactly on the real mouse position at ANY scale.
   const HOTSPOTS = {
-    neon: [-14, -14],
-    pixel: [-3, -2],
-    sword: [-4, -4],
-    comet: [-14, -14],
-    crosshair: [-14, -14],
-    duck: [-4, -12],
-    pencil: [-4, -4]
+    neon: [50, 50],
+    pixel: [16, 10],
+    sword: [16, 16],
+    comet: [50, 50],
+    crosshair: [50, 50],
+    duck: [20, 42],
+    pencil: [16, 16]
   };
+
+  const DOT_SIZE = 24;   // cursor size in px at scale 1
+  const RING_SIZE = 30;  // ring size in px at scale 1
 
   let dotEl, ringEl, trailContainer;
   let rafId = null;
@@ -140,7 +144,7 @@
         cfg.style = opts.style;
       }
       if (typeof opts.trail === 'boolean') cfg.trail = opts.trail;
-      if (typeof opts.scale === 'number') cfg.scale = Math.min(1.5, Math.max(0.75, opts.scale));
+      if (typeof opts.scale === 'number') cfg.scale = Math.min(1.3, Math.max(0.6, opts.scale));
       applyDomState();
     },
     refresh() {
