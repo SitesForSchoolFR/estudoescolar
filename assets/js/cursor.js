@@ -42,8 +42,7 @@
   };
 
   const pos = { x: -100, y: -100, rx: -100, ry: -100, gx: -100, gy: -100, visible: false, hover: false, down: false };
-  const DOT_FOLLOW = 0.35;  // dot follows fast
-  const RING_FOLLOW = 0.085; // ring follows with a smooth delay (trailing effect)
+  const RING_FOLLOW = 0.085; // ONLY the ring follows with a smooth delay; the dot is instant
   let lastTrailTime = 0;
 
   function detectCoarse() {
@@ -81,8 +80,10 @@
   function loop() {
     rafId = requestAnimationFrame(loop);
     if (!isTouch && cfg.style !== 'default' && pos.visible && !document.body.classList.contains('panic-active')) {
-      pos.rx += (pos.x - pos.rx) * DOT_FOLLOW;
-      pos.ry += (pos.y - pos.ry) * DOT_FOLLOW;
+      // Dot is INSTANT: it uses the raw mouse position (pos.x/pos.y) directly.
+      pos.rx = pos.x;
+      pos.ry = pos.y;
+      // Only the ring (bolinha) trails behind with a smooth delay.
       pos.gx += (pos.x - pos.gx) * RING_FOLLOW;
       pos.gy += (pos.y - pos.gy) * RING_FOLLOW;
 
