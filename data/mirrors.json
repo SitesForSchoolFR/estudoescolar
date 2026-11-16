@@ -1,0 +1,364 @@
+{
+  "cdns": {
+    "jsdelivr": [
+      "https://cdn.jsdelivr.net/gh/",
+      "https://fastly.jsdelivr.net/gh/",
+      "https://gcore.jsdelivr.net/gh/",
+      "https://testingcf.jsdelivr.net/gh/",
+      "https://originfastly.jsdelivr.net/gh/",
+      "https://quantil.jsdelivr.net/gh/",
+      "https://jsdelivr.b-cdn.net/gh/",
+      "https://cdn.jsdmirror.com/gh/",
+      "https://jsd.onmicrosoft.cn/gh/",
+      "https://raw.esm.sh/gh/"
+    ],
+    "gnHtmlPath": "freebuisness/html@main/",
+    "gnCoverPath": "freebuisness/covers@main/",
+    "ugsPath": "bubbls/ugs-singlefile@main/UGS-Files/",
+    "urnPath": "Onex558/uranium-source-@main/",
+    "dmImgPath": "mathlesson/mathlesson.github.io@main/",
+    "dm1": [
+      "https://d1pgfzxl8xljfg.cloudfront.net/",
+      "https://dosl6rc74a8u6.cloudfront.net/",
+      "https://d1wnrmoe2jrw0g.cloudfront.net/",
+      "https://dmg-db.pages.dev/",
+      "https://math-a1.b-cdn.net/",
+      "https://science-v1.b-cdn.net/",
+      "https://uni-class.b-cdn.net/",
+      "https://pub-8ba40c3fa5854d7490b82d9a8dd671d0.r2.dev/",
+      "https://db.duckmath.org/"
+    ],
+    "dm2": [
+      "https://d1b8zsan60tues.cloudfront.net/",
+      "https://d1imv5hmyw4kfp.cloudfront.net/",
+      "https://d139khpwsw1rlp.cloudfront.net/",
+      "https://db2.mathevolve.com/",
+      "https://db2.duckmath.org/",
+      "https://db2.englishteacherpro.com/",
+      "https://db2.statisticscontest.com/"
+    ]
+  },
+  "portals": [
+    {
+      "id": "portal-duckmath",
+      "name": "DuckMath",
+      "badge": "Portal Oficial + Mirrors SVG",
+      "color": "#f59e0b",
+      "description": "Portal completo do DuckMath com mais de 450 jogos otimizados para navegador e Chromebooks escolares.",
+      "credit": "Maddox (maddox05) & Equipe DuckMath",
+      "mirrors": [
+        {
+          "label": "DuckMath SVG Mirror 1 (p5.js)",
+          "url": "https://assets.editor.p5js.org/69f34707e1b8c4295655b517/6e528b37-2c24-457c-b1de-8b0964eacd2f.svg",
+          "type": "iframe"
+        },
+        {
+          "label": "DuckMath SVG Mirror 2 (p5.js)",
+          "url": "https://assets.editor.p5js.org/69f34707e1b8c4295655b517/e3a9881e-d76a-41f5-94bf-6df6bcea5ec2.svg",
+          "type": "iframe"
+        },
+        {
+          "label": "DuckMath CDN Backup (jsDelivr)",
+          "url": "https://cdn.jsdelivr.net/gh/dorianhagar506-coder/duckisducky-miy57l@main/DuckMath-1-ipg5.svg",
+          "type": "iframe"
+        },
+        {
+          "label": "DuckMath CDN Backup (Fastly)",
+          "url": "https://fastly.jsdelivr.net/gh/dorianhagar506-coder/duckisducky-miy57l@main/DuckMath-1-ipg5.svg",
+          "type": "iframe"
+        },
+        {
+          "label": "DuckMath HTML Standalone",
+          "url": "https://cdn.jsdelivr.net/gh/greyunblocked12/Duckmath@main/duckmath.html",
+          "type": "html"
+        }
+      ]
+    },
+    {
+      "id": "portal-gnmath",
+      "name": "GN-Math",
+      "badge": "8 Mirrors ESM + HTML",
+      "color": "#fc2651",
+      "description": "Biblioteca GN-Math com mais de 850 jogos, ports de PC, clássicos Flash, emuladores e mods de FNF.",
+      "credit": "genizy, breadbb & Comunidade GN-Math (Why2ITry mirrors)",
+      "mirrors": [
+        {
+          "label": "Study Calculus 21 (raw.esm.sh)",
+          "url": "https://raw.esm.sh/gh/Why2ITry/gn-math-links-2-1@38eb5c5c9a62b0be2391fcd8f459ecbd47d855b1/study-calculus-21-di3sir.html",
+          "type": "html"
+        },
+        {
+          "label": "Practice Geometry 2 (raw.esm.sh)",
+          "url": "https://raw.esm.sh/gh/Why2ITry/gn-math-links-2-1@38eb5c5c9a62b0be2391fcd8f459ecbd47d855b1/practice-geometry-2-53t910.html",
+          "type": "html"
+        },
+        {
+          "label": "Practice Equation 6 (raw.esm.sh)",
+          "url": "https://raw.esm.sh/gh/Why2ITry/gn-math-links-2-1@38eb5c5c9a62b0be2391fcd8f459ecbd47d855b1/practice-equation-6-3z7tqa.html",
+          "type": "html"
+        },
+        {
+          "label": "Study Fraction 17 (raw.esm.sh)",
+          "url": "https://raw.esm.sh/gh/Why2ITry/gn-math-links-2-1@38eb5c5c9a62b0be2391fcd8f459ecbd47d855b1/study-fraction-17-83lago.html",
+          "type": "html"
+        },
+        {
+          "label": "Practice Equation 18 (raw.esm.sh)",
+          "url": "https://raw.esm.sh/gh/Why2ITry/gn-math-links-2-1@38eb5c5c9a62b0be2391fcd8f459ecbd47d855b1/practice-equation-18-bsmud0.html",
+          "type": "html"
+        },
+        {
+          "label": "Practice Geometry 14 (raw.esm.sh)",
+          "url": "https://raw.esm.sh/gh/Why2ITry/gn-math-links-2-1@38eb5c5c9a62b0be2391fcd8f459ecbd47d855b1/practice-geometry-14-75irnr.html",
+          "type": "html"
+        },
+        {
+          "label": "Practice Geometry 8 (raw.esm.sh)",
+          "url": "https://raw.esm.sh/gh/Why2ITry/gn-math-links-2-1@38eb5c5c9a62b0be2391fcd8f459ecbd47d855b1/practice-geometry-8-f3tzjo.html",
+          "type": "html"
+        },
+        {
+          "label": "Study Fraction 5 (raw.esm.sh)",
+          "url": "https://raw.esm.sh/gh/Why2ITry/gn-math-links-2-1@38eb5c5c9a62b0be2391fcd8f459ecbd47d855b1/study-fraction-5-9b7ff5.html",
+          "type": "html"
+        }
+      ]
+    },
+    {
+      "id": "portal-gnmath-v2",
+      "name": "GN-Math v2",
+      "badge": "20 Mirrors Multi-CDN",
+      "color": "#a855f7",
+      "description": "Edição auto-contida de alta resiliência do GN-Math com balanceamento automático entre 18+ redes CDN globais e FNF Hub.",
+      "credit": "GN-Math Team, Sloth648, sealiee11 & Camzzz (FNF Hub)",
+      "mirrors": [
+        {
+          "label": "jsDelivr Principal",
+          "url": "https://cdn.jsdelivr.net/gh/Sloth648/caverned-spooky-wraith@main/a2.svg",
+          "type": "iframe"
+        },
+        {
+          "label": "Fastly jsDelivr",
+          "url": "https://fastly.jsdelivr.net/gh/Sloth648/caverned-spooky-wraith@main/a2.svg",
+          "type": "iframe"
+        },
+        {
+          "label": "Gcore jsDelivr",
+          "url": "https://gcore.jsdelivr.net/gh/Sloth648/caverned-spooky-wraith@main/a2.svg",
+          "type": "iframe"
+        },
+        {
+          "label": "OriginFastly jsDelivr",
+          "url": "https://originfastly.jsdelivr.net/gh/Sloth648/caverned-spooky-wraith@main/a2.svg",
+          "type": "iframe"
+        },
+        {
+          "label": "TestingCF jsDelivr",
+          "url": "https://testingcf.jsdelivr.net/gh/Sloth648/caverned-spooky-wraith@main/a2.svg",
+          "type": "iframe"
+        },
+        {
+          "label": "Quantil jsDelivr",
+          "url": "https://quantil.jsdelivr.net/gh/Sloth648/caverned-spooky-wraith@main/a2.svg",
+          "type": "iframe"
+        },
+        {
+          "label": "BunnyCDN jsDelivr",
+          "url": "https://jsdelivr.b-cdn.net/gh/Sloth648/caverned-spooky-wraith@main/a2.svg",
+          "type": "iframe"
+        },
+        {
+          "label": "OnMicrosoft Mirror",
+          "url": "https://jsd.onmicrosoft.cn/gh/Sloth648/caverned-spooky-wraith@main/a2.svg",
+          "type": "iframe"
+        },
+        {
+          "label": "StaticDelivr CDN",
+          "url": "https://cdn.staticdelivr.com/gh/Sloth648/caverned-spooky-wraith/main/a2.svg",
+          "type": "iframe"
+        },
+        {
+          "label": "JSDMirror CDN",
+          "url": "https://cdn.jsdmirror.com/gh/Sloth648/caverned-spooky-wraith@main/a2.svg",
+          "type": "iframe"
+        },
+        {
+          "label": "Statically.io CDN",
+          "url": "https://cdn.statically.io/gh/Sloth648/caverned-spooky-wraith/main/a2.svg",
+          "type": "iframe"
+        },
+        {
+          "label": "ESM.sh Raw",
+          "url": "https://raw.esm.sh/gh/Sloth648/caverned-spooky-wraith@main/a2.svg",
+          "type": "iframe"
+        },
+        {
+          "label": "ESM.sh Query Raw",
+          "url": "https://esm.sh/gh/Sloth648/caverned-spooky-wraith@main/a2.svg?raw",
+          "type": "iframe"
+        },
+        {
+          "label": "ESM.sh Padrão",
+          "url": "https://esm.sh/gh/Sloth648/caverned-spooky-wraith@main/a2.svg",
+          "type": "iframe"
+        },
+        {
+          "label": "RawCDN GitHack",
+          "url": "https://rawcdn.githack.com/Sloth648/caverned-spooky-wraith/main/a2.svg",
+          "type": "iframe"
+        },
+        {
+          "label": "Raw GitHack",
+          "url": "https://raw.githack.com/Sloth648/caverned-spooky-wraith/main/a2.svg",
+          "type": "iframe"
+        },
+        {
+          "label": "GitHubRaw",
+          "url": "https://githubraw.com/Sloth648/caverned-spooky-wraith/main/a2.svg",
+          "type": "iframe"
+        },
+        {
+          "label": "GitHub Raw Content",
+          "url": "https://raw.githubusercontent.com/Sloth648/caverned-spooky-wraith/main/a2.svg",
+          "type": "iframe"
+        },
+        {
+          "label": "Education Mirror 1 (sesaech)",
+          "url": "https://education.sesaech.gob.mx",
+          "type": "iframe"
+        },
+        {
+          "label": "Education Mirror 2 (p4p)",
+          "url": "https://education.pound4poundmma.ca",
+          "type": "iframe"
+        },
+        {
+          "label": "FNF Unblocked Hub (439 Mods)",
+          "url": "https://cdn.jsdelivr.net/gh/Sloth648/caverned-spooky-wraith@main/a.svg",
+          "type": "iframe"
+        }
+      ]
+    },
+    {
+      "id": "portal-p2p",
+      "name": "P2P · WebSight",
+      "badge": "5 Mirrors Apps Script",
+      "color": "#10b981",
+      "description": "Hub P2P WebSight v12 reunindo jogos curados à mão e bibliotecas integradas (UGS, Uranium, Truffled, Seraph, 3kh0, Noah's Hub, Axiom).",
+      "credit": "P2P (cedarlol / WebSight), Ultimate Game Stash (bubbls) & Onex558",
+      "mirrors": [
+        {
+          "label": "P2P Mirror #1 (HVLL6YBBC5)",
+          "url": "https://script.google.com/macros/s/AKfycbw3KzPix7iLtyJFB7eVqm2NCWhRoqSl0G38p7YeJm6KEHlETcuc-8jVnom69pUcwQUk/exec?id=HVLL6YBBC5",
+          "type": "iframe"
+        },
+        {
+          "label": "P2P Mirror #2 (V9KM79NFHC)",
+          "url": "https://script.google.com/macros/s/AKfycbw3KzPix7iLtyJFB7eVqm2NCWhRoqSl0G38p7YeJm6KEHlETcuc-8jVnom69pUcwQUk/exec?id=V9KM79NFHC",
+          "type": "iframe"
+        },
+        {
+          "label": "P2P Mirror #3 (J4JXSS9W3N)",
+          "url": "https://script.google.com/macros/s/AKfycbw3KzPix7iLtyJFB7eVqm2NCWhRoqSl0G38p7YeJm6KEHlETcuc-8jVnom69pUcwQUk/exec?id=J4JXSS9W3N",
+          "type": "iframe"
+        },
+        {
+          "label": "P2P Mirror #4 (GEMXRNAA6W)",
+          "url": "https://script.google.com/macros/s/AKfycbw3KzPix7iLtyJFB7eVqm2NCWhRoqSl0G38p7YeJm6KEHlETcuc-8jVnom69pUcwQUk/exec?id=GEMXRNAA6W",
+          "type": "iframe"
+        },
+        {
+          "label": "P2P Mirror #5 (HUZSGDFGGP)",
+          "url": "https://script.google.com/macros/s/AKfycbw3KzPix7iLtyJFB7eVqm2NCWhRoqSl0G38p7YeJm6KEHlETcuc-8jVnom69pUcwQUk/exec?id=HUZSGDFGGP",
+          "type": "iframe"
+        }
+      ]
+    },
+    {
+      "id": "portal-p2b",
+      "name": "Ported2Browser",
+      "badge": "Diretório Oficial de Ports",
+      "color": "#06b6d4",
+      "description": "Diretório independente com mais de 300 ports de PC, PlayStation, Nintendo, Xbox, DOS e Arcade adaptados para WebAssembly e WebGPU.",
+      "credit": "Ported2Browser.com & comunidade de porters (breadbb, slqnt, bog, DOS Zone Team, Slayoner, WASM Arcade, truffled, Crunch Arcade, dasher)",
+      "mirrors": [
+        {
+          "label": "Ported2Browser — Catálogo Completo",
+          "url": "https://ported2browser.com/",
+          "type": "iframe"
+        },
+        {
+          "label": "Ported2Browser — Adicionados Recentemente",
+          "url": "https://ported2browser.com/?tab=recent",
+          "type": "iframe"
+        },
+        {
+          "label": "Ported2Browser — Ports de PlayStation 2",
+          "url": "https://ported2browser.com/?platform=PlayStation+2&tab=recent",
+          "type": "iframe"
+        },
+        {
+          "label": "Ported2Browser — Ports de Windows / PC",
+          "url": "https://ported2browser.com/?platform=Windows&tab=recent",
+          "type": "iframe"
+        }
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "name": "DuckMath",
+      "role": "Catálogo HTML5, Unity, Flash & CloudFront Mirrors",
+      "authors": "Maddox (maddox05) & Equipe DuckMath",
+      "countLabel": "458 jogos integrados + 5 mirrors",
+      "color": "#f59e0b",
+      "url": "https://assets.editor.p5js.org/69f34707e1b8c4295655b517/6e528b37-2c24-457c-b1de-8b0964eacd2f.svg",
+      "notes": "Jogos otimizados para navegador, artes de capa, descrições de controles, ranking de popularidade e mirrors dedicados."
+    },
+    {
+      "name": "GN-Math",
+      "role": "Biblioteca Principal de Jogos, Ports Indie & Clássicos",
+      "authors": "genizy, breadbb & Contribuidores (mirrors Why2ITry)",
+      "countLabel": "850 jogos integrados + 8 mirrors",
+      "color": "#fc2651",
+      "notes": "Acervo gigantesco de jogos standalone, ports de PC/Mobile, clássicos em Ruffle/Flash, emuladores retrô e capas oficiais.",
+      "url": "https://raw.esm.sh/gh/Why2ITry/gn-math-links-2-1@38eb5c5c9a62b0be2391fcd8f459ecbd47d855b1/study-calculus-21-di3sir.html"
+    },
+    {
+      "name": "GN-Math v2",
+      "role": "Arquitetura Multi-CDN de Alta Disponibilidade & FNF Hub",
+      "authors": "GN-Math Team, Sloth648, sealiee11 & Camzzz",
+      "countLabel": "837 jogos verificados + 21 mirrors CDN",
+      "color": "#a855f7",
+      "notes": "Sistema de redundância entre 18+ CDNs (jsDelivr, Fastly, Gcore, BunnyCDN, StaticDelivr, JSDMirror, Statically, ESM.sh, GitHack) e central de mods FNF.",
+      "url": "https://cdn.jsdelivr.net/gh/Sloth648/caverned-spooky-wraith@main/a2.svg"
+    },
+    {
+      "name": "P2P (WebSight)",
+      "role": "Curadoria Especial, Clássicos de Console & Ultimate Game Stash",
+      "authors": "P2P (cedarlol), Ultimate Game Stash (bubbls), Onex558, Truffled, Seraph, 3kh0, Axiom & Noah's Hub",
+      "countLabel": "221 jogos integrados + 5 mirrors P2P",
+      "color": "#10b981",
+      "notes": "Seleção curada de clássicos como DOOM 1–64, Gran Turismo 2, GTA, Super Mario, Half-Life, LEGO Star Wars, Sandboxels, Tanuki Sunset e bibliotecas UGS.",
+      "url": "https://script.google.com/macros/s/AKfycbw3KzPix7iLtyJFB7eVqm2NCWhRoqSl0G38p7YeJm6KEHlETcuc-8jVnom69pUcwQUk/exec?id=HVLL6YBBC5"
+    },
+    {
+      "name": "Ported2Browser",
+      "role": "Diretório & Comunidade de Ports WebAssembly / WebGPU",
+      "authors": "Ported2Browser.com, breadbb, slqnt, bog, DOS Zone Team, Slayoner, WASM Arcade, Alan Nicolas (reVC), truffled, Crunch Arcade & dasher",
+      "countLabel": "249 ports de PC & Console catalogados",
+      "color": "#06b6d4",
+      "notes": "Curadoria e adaptação de grandes títulos de PC, PlayStation, Nintendo e DOS (Hollow Knight, Cuphead, ULTRAKILL, Celeste, GTA Vice City, Undertale, Balatro, Papers Please e muito mais) para o navegador.",
+      "url": "https://ported2browser.com/"
+    },
+    {
+      "name": "Desenvolvedores & Estúdios Originais",
+      "role": "Criação, Arte, Música e Design dos Jogos",
+      "authors": "Todos os criadores indie e estúdios creditados individualmente em cada jogo",
+      "countLabel": "Crédito individual em cada card e página de detalhes",
+      "color": "#6366f1",
+      "notes": "Todo o mérito artístico pertence aos criadores originais. Sempre que puder, apoie os desenvolvedores adquirindo as versões oficiais de seus jogos.",
+      "url": ""
+    }
+  ]
+}
