@@ -41,7 +41,9 @@
     scale: 1
   };
 
-  const pos = { x: -100, y: -100, rx: -100, ry: -100, visible: false, hover: false, down: false };
+  const pos = { x: -100, y: -100, rx: -100, ry: -100, gx: -100, gy: -100, visible: false, hover: false, down: false };
+  const DOT_FOLLOW = 0.35;  // dot follows fast
+  const RING_FOLLOW = 0.085; // ring follows with a smooth delay (trailing effect)
   let lastTrailTime = 0;
 
   function detectCoarse() {
@@ -79,8 +81,10 @@
   function loop() {
     rafId = requestAnimationFrame(loop);
     if (!isTouch && cfg.style !== 'default' && pos.visible && !document.body.classList.contains('panic-active')) {
-      pos.rx += (pos.x - pos.rx) * 0.22;
-      pos.ry += (pos.y - pos.ry) * 0.22;
+      pos.rx += (pos.x - pos.rx) * DOT_FOLLOW;
+      pos.ry += (pos.y - pos.ry) * DOT_FOLLOW;
+      pos.gx += (pos.x - pos.gx) * RING_FOLLOW;
+      pos.gy += (pos.y - pos.gy) * RING_FOLLOW;
 
       // Dot AND ring share the exact same smoothed coordinates (pos.rx/ry),
       // so the ring is always perfectly centered on the dot.
@@ -98,7 +102,7 @@
         ringEl.style.width = ringSize.toFixed(1) + 'px';
         ringEl.style.height = ringSize.toFixed(1) + 'px';
         ringEl.style.opacity = pos.hover ? '0.9' : '0.52';
-        ringEl.style.transform = `translate3d(${pos.rx.toFixed(1)}px, ${pos.ry.toFixed(1)}px, 0) translate(-50%, -50%)`;
+        ringEl.style.transform = `translate3d(${pos.gx.toFixed(1)}px, ${pos.gy.toFixed(1)}px, 0) translate(-50%, -50%)`;
         ringEl.classList.toggle('is-hover', pos.hover);
       }
     }
@@ -119,6 +123,8 @@
         if (!pos.visible) {
           pos.rx = e.clientX;
           pos.ry = e.clientY;
+          pos.gx = e.clientX;
+          pos.gy = e.clientY;
         }
         pos.x = e.clientX;
         pos.y = e.clientY;
