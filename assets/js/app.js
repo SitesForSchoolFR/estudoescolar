@@ -46,11 +46,15 @@ function filtered(){
  return list;
 }
 function coverHTML(g){
- const urls=GameLauncher.resolveCoverUrls(g);
+ const urls=GameLauncher.resolveCoverUrls(g).filter(Boolean);
  const first=urls[0]||'';
+ if(!first){ // jogos sem capa na fonte: placeholder com a inicial, na paleta do site
+  const ph='data:image/svg+xml,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="400" height="225"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#12161C"/><stop offset="1" stop-color="#7A0F1B"/></linearGradient></defs><rect width="400" height="225" fill="url(#g)"/><text x="200" y="140" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="96" fill="#EDEFF2">${(g.n||'?').trim().charAt(0).toUpperCase()}</text></svg>`);
+  return `<img loading="lazy" alt="${esc(g.n)}" src="${ph}">`;
+ }
  return `<img loading="lazy" alt="${esc(g.n)}" src="${esc(first)}" data-fallbacks='${esc(JSON.stringify(urls.slice(1)))}' onerror="imgFallback(this)">`;
 }
-window.imgFallback=function(img){const f=JSON.parse(img.dataset.fallbacks||'[]');if(f.length){img.src=f.shift();img.dataset.fallbacks=JSON.stringify(f)}else{img.onerror=null;img.src='data:image/svg+xml,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="400" height="225"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6366f1"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs><rect width="400" height="225" fill="url(#g)"/><text x="200" y="120" text-anchor="middle" font-family="Arial" font-size="42" fill="white">🎮</text></svg>`)}}
+window.imgFallback=function(img){const f=JSON.parse(img.dataset.fallbacks||'[]');if(f.length){img.src=f.shift();img.dataset.fallbacks=JSON.stringify(f)}else{img.onerror=null;img.src='data:image/svg+xml,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="400" height="225"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7A0F1B"/><stop offset="1" stop-color="#C8102E"/></linearGradient></defs><rect width="400" height="225" fill="url(#g)"/><text x="200" y="120" text-anchor="middle" font-family="Arial" font-size="42" fill="white">🎮</text></svg>`)}}
 function render(){
  const isPortals=collection==='portais';
  $('#portals-view').hidden=!isPortals; $('#games-view').hidden=isPortals;
@@ -59,8 +63,8 @@ function render(){
  const list=filtered(); $('#results-count').textContent=list.length+' jogos encontrados';
  const slice=list.slice(0,shown);
  $('#games-grid').innerHTML=slice.map(g=>`<article class="game-card" data-id="${g.id}" tabindex="0">
-   <button class="fav-btn ${ProfileStore.isFavorite(g.id)?'active':''}" data-fav="${g.id}" title="Favoritar" aria-label="Favoritar ${esc(g.n)}">♥</button>
-   <div class="card-body"><h3>${esc(g.n)}</h3><span class="source-badge">${esc(SOURCES[g.s[0]]||g.s[0])}</span><div class="card-meta"><span>${Math.round((g.p||0)/1000)}k jogadas</span><button class="open-btn" data-open="${g.id}">Abrir</button></div></div></article>`).join('')||'<div class="empty">Nenhum jogo encontrado. Favorite jogos clicando no coração.</div>';
+   <div class="card-cover">${coverHTML(g)}<span class="source-badge">${esc(SOURCES[g.s[0]]||g.s[0])}</span><button class="fav-btn ${ProfileStore.isFavorite(g.id)?'active':''}" data-fav="${g.id}" title="Favoritar" aria-label="Favoritar ${esc(g.n)}">♥</button></div>
+   <div class="card-body"><h3>${esc(g.n)}</h3><p>${esc(g.d||'Jogue agora direto no navegador, sem instalar nada.')}</p><div class="card-meta"><span>${Math.round((g.p||0)/1000)}k jogadas</span><button class="open-btn" data-open="${g.id}">Abrir</button></div></div></article>`).join('')||'<div class="empty">Nenhum jogo encontrado. Favorite jogos clicando no coração.</div>';
  $('#load-more-wrap').hidden=shown>=list.length;
  attachTilt();
 }
@@ -71,7 +75,7 @@ function renderPortals(){
 function attachTilt(){if(!settings.tilt)return;$$('.game-card').forEach(c=>{c.onmousemove=e=>{const r=c.getBoundingClientRect();c.style.transform=`perspective(700px) rotateY(${(e.clientX-r.left)/r.width*6-3}deg) rotateX(${3-(e.clientY-r.top)/r.height*6}deg)`};c.onmouseleave=()=>c.style.transform=''})}
 function renderHero(){
  const f=games.filter(g=>g.f===1).sort((a,b)=>b.p-a.p).slice(0,8);
- $('#hero-track').innerHTML=f.map(g=>`<div class="hero-slide" data-hero="${g.id}" tabindex="0" role="button" aria-label="${esc(g.n)}"><h3>${esc(g.n)}</h3></div>`).join('');
+ $('#hero-track').innerHTML=f.map(g=>`<div class="hero-slide" data-hero="${g.id}" tabindex="0" role="button" aria-label="${esc(g.n)}">${coverHTML(g)}<div><h3>${esc(g.n)}</h3><p>${esc(g.d||'')}</p><span class="hero-open">Abrir</span></div></div>`).join('');
 }
 function renderNav(){
  $('#collections-nav').innerHTML=COLLECTIONS.map(c=>`<button class="nav-item ${collection===c.id?'active':''}" data-col="${c.id}">${c.icon} ${c.label} <span>${countFor(c.id)}</span></button>`).join('')+`<div class="nav-sep">Fontes</div>`+Object.entries(SOURCES).map(([id,l])=>`<button class="nav-item ${collection===id?'active':''}" data-col="${id}">${l} <span>${games.filter(g=>g.s.includes(id)).length}</span></button>`).join('')+`<button class="nav-item ${collection==='portais'?'active':''}" data-col="portais">Portais & Mirrors <span>${mirrors?mirrors.portals.length:5}</span></button>`;
@@ -80,6 +84,7 @@ function countFor(id){if(SOURCES[id])return games.filter(g=>g.s.includes(id)).le
 function openGame(g){
  currentGame=g;
  $('#game-modal').hidden=false;
+ $('#modal-cover').innerHTML=coverHTML(g);
  $('#modal-title').textContent=g.n; $('#modal-desc').textContent=g.d||'Jogue direto no navegador.';
  $('#modal-meta').innerHTML=`<span class="badge">${g.s.map(s=>SOURCES[s]||s).join(' · ')}</span>${g.a?`<span class="badge">${esc(g.a)}</span>`:''}<span class="badge">Popularidade ${g.p||0}</span>`;
  $('#modal-controls').textContent=g.ct||'Mouse e teclado / toque na tela, conforme o jogo.';
