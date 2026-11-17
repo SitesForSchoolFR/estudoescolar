@@ -3,13 +3,14 @@
 'use strict';
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const DEFAULTS={theme:'neon',accent:'#6366f1',accent2:'#22d3ee',bgMode:'constellation',bgSpeed:1,bgDensity:1,ripples:true,bgImage:'',cursor:'neon',cursorTrail:true,cursorScale:1,sound:true,volume:.6,cdn:0,hud:true,density:'normal',tilt:true,sort:'popular'};
+const DEFAULTS={theme:'neon',accent:'#7A0F1B',accent2:'#C8102E',bgMode:'static',focus:false,bgSpeed:1,bgDensity:1,ripples:true,bgImage:'',cursor:'neon',cursorTrail:true,cursorScale:1,sound:true,volume:.6,cdn:0,hud:true,density:'normal',tilt:true,sort:'popular'};
 let settings={...DEFAULTS}; try{Object.assign(settings,JSON.parse(localStorage.getItem('ee_settings_v1')||'{}'))}catch(e){}
+if(settings.accent==='#6366f1'&&settings.accent2==='#22d3ee'){settings.accent=DEFAULTS.accent;settings.accent2=DEFAULTS.accent2} // redesign migration (cores padrão antigas)
 let games=[],mirrors=null,collection='todos',query='',shown=60,currentGame=null,lbSort='xp';
 const COLLECTIONS=[
- {id:'night',icon:'📝',label:'BlogPaste'},
- {id:'driveu7',icon:'🚗',label:'Drive U-7'},{id:'todos',icon:'🎮',label:'Todos os Jogos'},{id:'famosos',icon:'🔥',label:'Famosos'},{id:'favoritos',icon:'❤️',label:'Favoritos'},{id:'joias',icon:'💎',label:'Joias Escondidas'},{id:'recentes',icon:'🕘',label:'Recentes'},{id:'ports',icon:'🖥️',label:'Ports de PC/Console'},{id:'acao',icon:'⚔️',label:'Ação'},{id:'corrida-esportes',icon:'🏎️',label:'Corrida & Esportes'},{id:'plataforma',icon:'🍄',label:'Plataforma'},{id:'estrategia',icon:'🧠',label:'Estratégia'},{id:'terror',icon:'👻',label:'Terror'},{id:'ritmo',icon:'🎵',label:'Ritmo / FNF'},{id:'retro',icon:'👾',label:'Retrô'},{id:'multiplayer',icon:'👥',label:'Multiplayer'},{id:'mundos',icon:'🌍',label:'Mundos Abertos'}];
-const SOURCES={night:'📝 BlogPaste (Night.Games)',driveu7:'🚗 Drive U-7 (G+)',mantle:'⭐ Mantle · Mineral','gn-math':'GN-Math','gn-math-v2':'GN-Math v2',duckmath:'DuckMath',p2p:'P2P · WebSight',ported2browser:'Ported2Browser'};
+ {id:'night',icon:'',label:'BlogPaste'},
+ {id:'driveu7',icon:'',label:'Drive U-7'},{id:'todos',icon:'',label:'Todos os Jogos'},{id:'famosos',icon:'',label:'Famosos'},{id:'favoritos',icon:'',label:'Favoritos'},{id:'joias',icon:'',label:'Joias Escondidas'},{id:'recentes',icon:'',label:'Recentes'},{id:'ports',icon:'',label:'Ports de PC/Console'},{id:'acao',icon:'',label:'Ação'},{id:'corrida-esportes',icon:'',label:'Corrida & Esportes'},{id:'plataforma',icon:'',label:'Plataforma'},{id:'estrategia',icon:'',label:'Estratégia'},{id:'terror',icon:'',label:'Terror'},{id:'ritmo',icon:'',label:'Ritmo / FNF'},{id:'retro',icon:'',label:'Retrô'},{id:'multiplayer',icon:'',label:'Multiplayer'},{id:'mundos',icon:'',label:'Mundos Abertos'}];
+const SOURCES={night:'BlogPaste · Night.Games',driveu7:'Drive U-7 · Unblocked Games G+',mantle:'Mantle · Mineral','gn-math':'GN-Math','gn-math-v2':'GN-Math v2',duckmath:'DuckMath',p2p:'P2P · WebSight',ported2browser:'Ported2Browser'};
 function saveSettings(){localStorage.setItem('ee_settings_v1',JSON.stringify(settings))}
 function toast(msg,type='info'){const t=document.createElement('div');t.className='toast '+type;t.textContent=msg;$('#toasts').appendChild(t);requestAnimationFrame(()=>t.classList.add('show'));setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),300)},3600)}
 window.UI={toast,showPopupBlockedPrompt(opts){const m=$('#popup-modal');m.hidden=false;$('#popup-open-btn').onclick=()=>{m.hidden=true;GameLauncher.launchRawOption(opts)}}};
@@ -22,6 +23,8 @@ function applySettings(){
  CursorEngine.configure({style:settings.cursor,trail:settings.cursorTrail,scale:settings.cursorScale});
  GameLauncher.configure({preferredCdnIdx:settings.cdn,hudEnabled:settings.hud});
  document.body.classList.toggle('compact',settings.density==='compact');
+ document.body.classList.toggle('focus-mode',!!settings.focus);
+ const fb=document.getElementById('focus-btn'); if(fb)fb.setAttribute('aria-pressed',String(!!settings.focus));
  document.body.classList.toggle('no-tilt',!settings.tilt);
  saveSettings();
  // sync controls
@@ -56,8 +59,8 @@ function render(){
  const list=filtered(); $('#results-count').textContent=list.length+' jogos encontrados';
  const slice=list.slice(0,shown);
  $('#games-grid').innerHTML=slice.map(g=>`<article class="game-card" data-id="${g.id}" tabindex="0">
-   <div class="card-cover">${coverHTML(g)}<button class="fav-btn ${ProfileStore.isFavorite(g.id)?'active':''}" data-fav="${g.id}" title="Favoritar">❤</button><span class="source-badge">${esc(SOURCES[g.s[0]]||g.s[0])}</span></div>
-   <div class="card-body"><h3>${esc(g.n)}</h3><p>${esc(g.d||'Jogue agora direto no navegador, sem instalar nada.')}</p><div class="card-meta"><span>⭐ ${Math.round((g.p||0)/1000)}k</span><span>${g.m==='html'?'HTML5':'Web'}</span></div></div></article>`).join('')||'<div class="empty">Nenhum jogo encontrado. ❤️ Favorite jogos clicando no coração!</div>';
+   <button class="fav-btn ${ProfileStore.isFavorite(g.id)?'active':''}" data-fav="${g.id}" title="Favoritar" aria-label="Favoritar ${esc(g.n)}">♥</button>
+   <div class="card-body"><h3>${esc(g.n)}</h3><span class="source-badge">${esc(SOURCES[g.s[0]]||g.s[0])}</span><div class="card-meta"><span>${Math.round((g.p||0)/1000)}k jogadas</span><button class="open-btn" data-open="${g.id}">Abrir</button></div></div></article>`).join('')||'<div class="empty">Nenhum jogo encontrado. Favorite jogos clicando no coração.</div>';
  $('#load-more-wrap').hidden=shown>=list.length;
  attachTilt();
 }
@@ -68,26 +71,25 @@ function renderPortals(){
 function attachTilt(){if(!settings.tilt)return;$$('.game-card').forEach(c=>{c.onmousemove=e=>{const r=c.getBoundingClientRect();c.style.transform=`perspective(700px) rotateY(${(e.clientX-r.left)/r.width*6-3}deg) rotateX(${3-(e.clientY-r.top)/r.height*6}deg)`};c.onmouseleave=()=>c.style.transform=''})}
 function renderHero(){
  const f=games.filter(g=>g.f===1).sort((a,b)=>b.p-a.p).slice(0,8);
- $('#hero-track').innerHTML=f.map(g=>`<div class="hero-slide" data-hero="${g.id}">${coverHTML(g)}<div><h3>${esc(g.n)}</h3><p>${esc(g.d||'')}</p><button class="btn primary">▶ Jogar agora</button></div></div>`).join('');
+ $('#hero-track').innerHTML=f.map(g=>`<div class="hero-slide" data-hero="${g.id}" tabindex="0" role="button" aria-label="${esc(g.n)}"><h3>${esc(g.n)}</h3></div>`).join('');
 }
 function renderNav(){
- $('#collections-nav').innerHTML=COLLECTIONS.map(c=>`<button class="nav-item ${collection===c.id?'active':''}" data-col="${c.id}">${c.icon} ${c.label} <span>${countFor(c.id)}</span></button>`).join('')+`<div class="nav-sep">Fontes</div>`+Object.entries(SOURCES).map(([id,l])=>`<button class="nav-item ${collection===id?'active':''}" data-col="${id}">📚 ${l} <span>${games.filter(g=>g.s.includes(id)).length}</span></button>`).join('')+`<button class="nav-item ${collection==='portais'?'active':''}" data-col="portais">🌐 Portais & Mirrors <span>${mirrors?mirrors.portals.length:5}</span></button>`;
+ $('#collections-nav').innerHTML=COLLECTIONS.map(c=>`<button class="nav-item ${collection===c.id?'active':''}" data-col="${c.id}">${c.icon} ${c.label} <span>${countFor(c.id)}</span></button>`).join('')+`<div class="nav-sep">Fontes</div>`+Object.entries(SOURCES).map(([id,l])=>`<button class="nav-item ${collection===id?'active':''}" data-col="${id}">${l} <span>${games.filter(g=>g.s.includes(id)).length}</span></button>`).join('')+`<button class="nav-item ${collection==='portais'?'active':''}" data-col="portais">Portais & Mirrors <span>${mirrors?mirrors.portals.length:5}</span></button>`;
 }
 function countFor(id){if(SOURCES[id])return games.filter(g=>g.s.includes(id)).length;if(id==='todos')return games.length;if(id==='favoritos')return ProfileStore.get().favorites.length;if(id==='recentes')return ProfileStore.get().recents.length;return games.filter(g=>g.k.includes(id)).length}
 function openGame(g){
  currentGame=g;
  $('#game-modal').hidden=false;
- $('#modal-cover').innerHTML=coverHTML(g);
  $('#modal-title').textContent=g.n; $('#modal-desc').textContent=g.d||'Jogue direto no navegador.';
- $('#modal-meta').innerHTML=`<span class="badge">${g.s.map(s=>SOURCES[s]||s).join(' · ')}</span>${g.a?`<span class="badge">✍️ ${esc(g.a)}</span>`:''}<span class="badge">⭐ Popularidade ${g.p||0}</span>`;
+ $('#modal-meta').innerHTML=`<span class="badge">${g.s.map(s=>SOURCES[s]||s).join(' · ')}</span>${g.a?`<span class="badge">${esc(g.a)}</span>`:''}<span class="badge">Popularidade ${g.p||0}</span>`;
  $('#modal-controls').textContent=g.ct||'Mouse e teclado / toque na tela, conforme o jogo.';
  const cands=GameLauncher.buildGameCandidates(g);
  $('#modal-mirrors').innerHTML=cands.map((c,i)=>`<option value="${i}">Servidor ${i+1}${c.type==='iframe'?' · web':' · app'}</option>`).join('');
- $('#modal-fav').textContent=ProfileStore.isFavorite(g.id)?'❤️ Nos Favoritos':'🤍 Adicionar aos Favoritos';
+ $('#modal-fav').textContent=ProfileStore.isFavorite(g.id)?'♥ Nos favoritos':'Adicionar aos favoritos';
 }
 function renderProfile(){
  const p=ProfileStore.get(),lvl=ProfileStore.getLevel();
- $('#profile-summary').innerHTML=`<div class="avatar">${esc(p.avatar)}</div><div><strong style="color:${esc(p.color)}">${esc(p.name||'Visitante')}</strong><small>${esc(p.title)} · Nível ${lvl.level}</small><div class="xpbar"><i style="width:${Math.round(lvl.progress*100)}%"></i></div><small>XP ${p.xp} · ⏱️ ${ProfileStore.formatPlaytime(p.playSeconds)} · 🎮 ${p.playedIds.length} jogos · 🔥 ${p.streak} dias</small></div>`;
+ $('#profile-summary').innerHTML=`<div class="avatar">${esc(p.avatar)}</div><div><strong style="color:${esc(p.color)}">${esc(p.name||'Visitante')}</strong><small>${esc(p.title)} · Nível ${lvl.level}</small><div class="xpbar"><i style="width:${Math.round(lvl.progress*100)}%"></i></div><small>XP ${p.xp} · ${ProfileStore.formatPlaytime(p.playSeconds)} · ${p.playedIds.length} jogos · ${p.streak} dias de streak</small></div>`;
  $('#profile-name').value=p.name;$('#profile-title').value=p.title;
  $('#avatars').innerHTML=ProfileStore.AVATARS.map(a=>`<button class="chip ${p.avatar===a?'active':''}" data-avatar="${a}">${a}</button>`).join('');
  $('#colors').innerHTML=ProfileStore.NAME_COLORS.map(c=>`<button class="color-dot ${p.color===c?'active':''}" data-color="${c}" style="background:${c}"></button>`).join('');
@@ -95,15 +97,15 @@ function renderProfile(){
 }
 function renderLeaderboard(){
  const box=$('#leaderboard-body');
- if(!ProfileStore.hasName()){box.innerHTML=`<div class="empty">🏆 Defina um nome no Perfil para entrar no Ranking Global!<br><br><button class="btn primary" onclick="document.getElementById('leaderboard-modal').hidden=true;openModal('profile-modal')">Criar meu perfil</button></div>`;return}
+ if(!ProfileStore.hasName()){box.innerHTML=`<div class="empty">Defina um nome no perfil para entrar no ranking global.<br><br><button class="btn primary" onclick="document.getElementById('leaderboard-modal').hidden=true;openModal('profile-modal')">Criar meu perfil</button></div>`;return}
  const rows=SocialHub.getLeaderboard(lbSort);
- box.innerHTML=rows.length?`<table class="lb-table"><thead><tr><th>#</th><th>Jogador</th><th>Nível</th><th>XP</th><th>Tempo</th><th>Jogos</th><th>Streak</th></tr></thead><tbody>${rows.slice(0,100).map((r,i)=>`<tr><td>${i+1}</td><td><span style="color:${esc(r.color||'#fff')}">${esc(r.avatar||'🎮')} ${esc(r.name)}</span></td><td>${r.level||1}</td><td>${r.xp||0}</td><td>${ProfileStore.formatPlaytime(r.playSeconds||0)}</td><td>${r.gamesPlayed||0}</td><td>🔥 ${r.streak||0}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">Conectando ao ranking global… jogue e seu placar aparece aqui!</div>';
+ box.innerHTML=rows.length?`<table class="lb-table"><thead><tr><th>#</th><th>Jogador</th><th>Nível</th><th>XP</th><th>Tempo</th><th>Jogos</th><th>Streak</th></tr></thead><tbody>${rows.slice(0,100).map((r,i)=>`<tr><td>${i+1}</td><td><span style="color:${esc(r.color||'#fff')}">${esc(r.avatar||'🎮')} ${esc(r.name)}</span></td><td>${r.level||1}</td><td>${r.xp||0}</td><td>${ProfileStore.formatPlaytime(r.playSeconds||0)}</td><td>${r.gamesPlayed||0}</td><td>${r.streak||0}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">Conectando ao ranking global… jogue e seu placar aparece aqui!</div>';
 }
 function renderChat(){
  const msgs=SocialHub.getMessages();
  $('#chat-messages').innerHTML=msgs.map(m=>{
-   let shared=''; try{const sg=m.sharedGame; if(sg) shared=`<button class="shared-card" data-shared="${esc(sg.id)}">🎮 ${esc(sg.name)} — jogar</button>`}catch(e){}
-   return `<div class="chat-msg"><span>${esc(m.avatar||'🎮')}</span><div><strong style="color:${esc(m.color||'#fff')}">${esc(m.name)} <small>Nv.${m.level||1} · ${new Date(m.ts).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}</small></strong><p>${esc(m.text)}</p>${shared}<button class="mute-btn" data-mute="${esc(m.pubkey)}">silenciar</button></div></div>`}).join('')||'<div class="empty">Sem mensagens ainda. Seja o primeiro! 👋</div>';
+   let shared=''; try{const sg=m.sharedGame; if(sg) shared=`<button class="shared-card" data-shared="${esc(sg.id)}">${esc(sg.name)} — jogar</button>`}catch(e){}
+   return `<div class="chat-msg"><span>${esc(m.avatar||'🎮')}</span><div><strong style="color:${esc(m.color||'#fff')}">${esc(m.name)} <small>Nv.${m.level||1} · ${new Date(m.ts).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}</small></strong><p>${esc(m.text)}</p>${shared}<button class="mute-btn" data-mute="${esc(m.pubkey)}">silenciar</button></div></div>`}).join('')||'<div class="empty">Sem mensagens ainda. Seja o primeiro a falar.</div>';
  const st=SocialHub.getStatus(); $('#chat-status').textContent=`${st.connectedCount}/${st.totalRelays} relays · ${st.unreadCount} não lidas`;
  $('#chat-badge').hidden=st.unreadCount===0; $('#chat-badge').textContent=st.unreadCount;
  const el=$('#chat-messages'); el.scrollTop=el.scrollHeight;
@@ -130,12 +132,13 @@ async function init(){
  SocialHub.onChat(renderChat); SocialHub.onLeaderboard(()=>{if(!$('#leaderboard-modal').hidden)renderLeaderboard()}); SocialHub.onStatus(renderChat);
  setInterval(()=>{if(!$('#leaderboard-modal').hidden)renderLeaderboard()},8000);
  bind();
- toast(`Bem-vindo! ${games.length} jogos carregados 🎮`,'success');
+ toast(`Bem-vindo! ${games.length} jogos carregados`,'success');
 }
 function bind(){
  document.addEventListener('click',e=>{
   const col=e.target.closest('[data-col]'); if(col){collection=col.dataset.col;shown=60;SoundFX.click();renderNav();render();window.scrollTo({top:0,behavior:'smooth'});return}
-  const fav=e.target.closest('[data-fav]'); if(fav){e.stopPropagation();const added=ProfileStore.toggleFavorite(fav.dataset.fav);fav.classList.toggle('active',added);toast(added?'Adicionado aos Favoritos ❤️':'Removido dos Favoritos');return}
+  const openBtn=e.target.closest('[data-open]'); if(openBtn){e.stopPropagation();const g=games.find(x=>x.id===openBtn.dataset.open);if(g)GameLauncher.launchGame(g);return}
+  const fav=e.target.closest('[data-fav]'); if(fav){e.stopPropagation();const added=ProfileStore.toggleFavorite(fav.dataset.fav);fav.classList.toggle('active',added);toast(added?'Adicionado aos favoritos':'Removido dos Favoritos');return}
   const card=e.target.closest('.game-card'); if(card){const g=games.find(x=>x.id===card.dataset.id);if(g)openGame(g);return}
   const hero=e.target.closest('[data-hero]'); if(hero){const g=games.find(x=>x.id===hero.dataset.hero);if(g)openGame(g);return}
   const portal=e.target.closest('[data-portal]'); if(portal){const p=mirrors.portals.find(x=>x.id===portal.dataset.portal);const sel=document.querySelector(`[data-portal-mirror="${p.id}"]`);GameLauncher.launchPortal(p,Number(sel?.value||0));return}
@@ -149,16 +152,16 @@ function bind(){
  $('#search-input').addEventListener('input',e=>{query=e.target.value;shown=60;render()});
  $('#sort-select').addEventListener('change',e=>{settings.sort=e.target.value;saveSettings();render()});
  $('#load-more').onclick=()=>{shown+=60;render()};
- $('#roulette-btn').onclick=()=>{const pool=filtered().length?filtered():games;let i=0;const iv=setInterval(()=>{SoundFX.rouletteTick();const g=pool[Math.floor(Math.random()*pool.length)];$('#collection-title').textContent='🎲 '+g.n;if(++i>14){clearInterval(iv);openGame(g)}},70)};
+ $('#roulette-btn').onclick=()=>{const pool=filtered().length?filtered():games;let i=0;const iv=setInterval(()=>{SoundFX.rouletteTick();const g=pool[Math.floor(Math.random()*pool.length)];$('#collection-title').textContent=''+g.n;if(++i>14){clearInterval(iv);openGame(g)}},70)};
  $('#random-hero').onclick=()=>$('#roulette-btn').click();
  $('#search-input').addEventListener('keydown',e=>{if(e.key==='Escape'){e.target.value='';query='';render()}});
  document.addEventListener('keydown',e=>{if((e.ctrlKey&&e.key.toLowerCase()==='k')||e.key==='/'){if(document.activeElement.tagName!=='INPUT'&&document.activeElement.tagName!=='TEXTAREA'){e.preventDefault();$('#search-input').focus()}}});
  $$('[data-close]').forEach(b=>b.onclick=()=>b.closest('.modal').hidden=true);
  $('#play-btn').onclick=()=>{if(currentGame)GameLauncher.launchGame(currentGame,Number($('#modal-mirrors').value||0))};
- $('#modal-fav').onclick=()=>{if(!currentGame)return;ProfileStore.toggleFavorite(currentGame.id);$('#modal-fav').textContent=ProfileStore.isFavorite(currentGame.id)?'❤️ Nos Favoritos':'🤍 Adicionar aos Favoritos';render()};
+ $('#modal-fav').onclick=()=>{if(!currentGame)return;ProfileStore.toggleFavorite(currentGame.id);$('#modal-fav').textContent=ProfileStore.isFavorite(currentGame.id)?'♥ Nos favoritos':'Adicionar aos favoritos';render()};
  $('#download-btn').onclick=()=>currentGame&&GameLauncher.downloadGameOffline(currentGame);
  $('#share-btn').onclick=async()=>{if(!currentGame)return;if(!ProfileStore.hasName()){toast('Defina um nome no perfil para compartilhar no Chat Global','warn');openModal('profile-modal');return}const r=await SocialHub.sendChatMessage(`Recomendo ${currentGame.n}!`,{id:currentGame.id,name:currentGame.n});toast(r.ok?'Compartilhado no Chat Global!':'Erro ao compartilhar',r.ok?'success':'warn')};
- $('#save-profile').onclick=()=>{ProfileStore.setProfile({name:$('#profile-name').value,title:$('#profile-title').value});toast('Perfil salvo! Ranking e Chat Global liberados 🏆','success');renderProfile();renderLeaderboard()};
+ $('#save-profile').onclick=()=>{ProfileStore.setProfile({name:$('#profile-name').value,title:$('#profile-title').value});toast('Perfil salvo! Ranking e chat global liberados','success');renderProfile();renderLeaderboard()};
  $('#export-btn').onclick=()=>{const blob=new Blob([ProfileStore.exportBackup()],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='estudo-escolar-backup.json';a.click()};
  $('#import-file').onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{try{ProfileStore.importBackup(t);applySettings();toast('Backup importado!','success');location.reload()}catch(err){toast('Backup inválido','warn')}})};
  // chat
@@ -178,6 +181,11 @@ function bind(){
  $('#panic-test').onclick=()=>CloakManager.togglePanic(true);
  $('#open-blank-site').onclick=()=>CloakManager.openSiteInAboutBlank();
  // header buttons
+ const menuBtn=$('#menu-btn'),menuDrop=$('#menu-dropdown');
+ if(menuBtn&&menuDrop){menuBtn.onclick=e=>{e.stopPropagation();const open=menuDrop.hidden;menuDrop.hidden=!open;menuBtn.setAttribute('aria-expanded',String(open))};
+ document.addEventListener('click',e=>{if(!menuDrop.hidden&&!e.target.closest('.top-actions')){menuDrop.hidden=true;menuBtn.setAttribute('aria-expanded','false')}});
+ menuDrop.addEventListener('click',()=>{menuDrop.hidden=true;menuBtn.setAttribute('aria-expanded','false')});}
+ const focusBtn=$('#focus-btn'); if(focusBtn)focusBtn.onclick=()=>{settings.focus=!settings.focus;applySettings();toast(settings.focus?'Modo foco ativado: só busca e jogos':'Modo foco desativado')};
  $('#profile-btn').onclick=()=>openModal('profile-modal'); $('#leaderboard-btn').onclick=()=>openModal('leaderboard-modal'); $('#studio-btn').onclick=()=>openModal('studio-modal'); $('#credits-btn').onclick=()=>openModal('credits-modal');
 }
 document.addEventListener('DOMContentLoaded',init);

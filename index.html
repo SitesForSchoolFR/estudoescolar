@@ -13,39 +13,43 @@
 <div id="cursor-dot"></div><div id="cursor-ring"></div><div id="cursor-trail"></div>
 
 <header class="topbar">
-  <div class="logo">🎓 <span>Estudo Escolar</span></div>
-  <div class="search-wrap"><input id="search-input" type="text" placeholder="🔍 Buscar jogo… ( / ou Ctrl+K )" autocomplete="off"></div>
+  <div class="logo"><strong>ESTUDO<span class="dot">.</span>ESCOLAR</strong><small>JOGOS NO NAVEGADOR</small></div>
+  <div class="search-wrap"><input id="search-input" type="text" placeholder="Buscar jogo...  ( / ou Ctrl+K )" autocomplete="off" aria-label="Buscar jogo"></div>
   <div class="top-actions">
-    <button class="icon-btn" id="roulette-btn" title="Jogo surpresa">🎲 Roleta</button>
-    <button class="icon-btn" id="chat-toggle" title="Chat Global">💬 Chat<span id="chat-badge" hidden>0</span></button>
-    <button class="icon-btn" id="leaderboard-btn" title="Ranking Global">🏆</button>
-    <button class="icon-btn" id="studio-btn" title="Personalizar">🎨</button>
-    <button class="icon-btn" id="credits-btn" title="Créditos">ℹ️</button>
-    <button class="icon-btn" id="profile-btn" title="Meu Perfil">👤 Perfil</button>
+    <button class="text-btn" id="focus-btn" aria-pressed="false" title="Modo Foco: mostra só a busca e os jogos">Foco</button>
+    <button class="text-btn" id="menu-btn" aria-haspopup="true" aria-expanded="false" title="Menu">•••</button>
+    <div id="menu-dropdown" hidden role="menu">
+      <button class="text-btn" id="roulette-btn">Jogo surpresa</button>
+      <button class="text-btn" id="chat-toggle">Chat global <span id="chat-badge" hidden>0</span></button>
+      <button class="text-btn" id="leaderboard-btn">Ranking global</button>
+      <button class="text-btn" id="studio-btn">Personalizar</button>
+      <button class="text-btn" id="credits-btn">Créditos</button>
+      <button class="text-btn" id="profile-btn">Meu perfil</button>
+    </div>
   </div>
 </header>
 
 <div class="layout">
-  <aside class="sidebar"><h3 style="margin:4px 4px 10px">📚 Coleções</h3><nav id="collections-nav"></nav></aside>
+  <aside class="sidebar"><h3>Coleções</h3><nav id="collections-nav"></nav></aside>
   <main>
     <section class="hero">
-      <h1>Aprender também pode ser <span style="background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent">jogar</span> 🎮</h1>
-      <p>Mais de 1.300 jogos de DuckMath, GN-Math, GN-Math v2, P2P (WebSight) e Ported2Browser — todos abrindo em <strong>about:blank</strong>, sem instalar nada.</p>
-      <button class="btn primary" id="random-hero">🎲 Jogar algo aleatório</button>
+      <h1>Tudo em um só lugar. <em>Sem instalar nada.</em></h1>
+      <p>Milhares de jogos de DuckMath, GN-Math, GN-Math v2, P2P, Ported2Browser, Mantle, Night.Games e Drive U-7 — todos abrindo em <strong>about:blank</strong>.</p>
+      <button class="btn" id="random-hero">Jogo aleatório</button>
       <div id="hero-track"></div>
     </section>
 
     <section id="games-view">
       <div class="section-head"><h2 id="collection-title">Todos os Jogos</h2>
         <div class="toolbar"><span id="results-count" style="color:var(--muted);font-size:.85rem"></span>
-        <select id="sort-select"><option value="popular">🔥 Popularidade</option><option value="az">A → Z</option><option value="za">Z → A</option><option value="source">Fonte</option></select></div>
+        <select id="sort-select"><option value="popular">Popularidade</option><option value="az">A → Z</option><option value="za">Z → A</option><option value="source">Fonte</option></select></div>
       </div>
       <div id="games-grid"></div>
       <div id="load-more-wrap"><button class="btn primary" id="load-more">Carregar mais jogos</button></div>
     </section>
 
     <section id="portals-view" hidden>
-      <div class="section-head"><h2>🌐 Portais Originais &amp; Mirrors</h2></div>
+      <div class="section-head"><h2>Portais originais &amp; mirrors</h2></div>
       <p style="color:var(--muted)">Os hubs oficiais de cada fonte, com todos os mirrors CDN — também abrem camuflados em about:blank.</p>
       <div id="portals-grid"></div>
     </section>
@@ -53,7 +57,7 @@
 </div>
 
 <footer>
-  <strong>Estudo Escolar</strong> — feito para estudar… e para o recreio. 😎<br>
+  <strong>Estudo Escolar</strong> — feito para estudar — e para o recreio.<br>
   Todos os jogos pertencem aos seus criadores originais. Apoie os desenvolvedores!
   <div id="credits-footer-list"></div>
 </footer>
@@ -63,66 +67,66 @@
   <button class="modal-close" data-close>✕</button>
   <div id="modal-cover"></div><h2 id="modal-title"></h2><div id="modal-meta"></div>
   <p id="modal-desc" style="color:var(--muted)"></p>
-  <h4>🎮 Controles</h4><pre class="controls" id="modal-controls"></pre>
+  <h4>Controles</h4><pre class="controls" id="modal-controls"></pre>
   <label style="font-size:.85rem;color:var(--muted)">Mirror / CDN</label>
   <select id="modal-mirrors" style="width:100%"></select>
   <div class="modal-actions">
-    <button class="btn primary" id="play-btn">▶ Jogar em about:blank</button>
-    <button class="btn" id="modal-fav">🤍 Favoritar</button>
-    <button class="btn" id="download-btn">⬇️ Baixar HTML</button>
-    <button class="btn" id="share-btn">💬 Compartilhar no Chat</button>
+    <button class="btn primary" id="play-btn">Abrir em about:blank</button>
+    <button class="btn" id="modal-fav">Favoritar</button>
+    <button class="btn" id="download-btn">Baixar HTML</button>
+    <button class="btn" id="share-btn">Compartilhar no chat</button>
   </div>
 </div></div>
 
 <!-- Profile modal -->
 <div class="modal" id="profile-modal" hidden><div class="modal-box">
-  <button class="modal-close" data-close>✕</button><h2>👤 Meu Perfil</h2>
+  <button class="modal-close" data-close>✕</button><h2>Meu perfil</h2>
   <div id="profile-summary"></div>
   <div class="field"><label>Nome de jogador (libera Ranking Global + Chat Global)</label><input type="text" id="profile-name" maxlength="24" placeholder="Ex.: PlayerPro123"></div>
   <div class="field"><label>Título</label><input type="text" id="profile-title" maxlength="32"></div>
   <div class="field"><label>Avatar</label><div id="avatars" style="display:flex;flex-wrap:wrap;gap:6px"></div></div>
   <div class="field"><label>Cor do nome</label><div id="colors" style="display:flex;gap:8px"></div></div>
-  <button class="btn primary" id="save-profile">💾 Salvar perfil</button>
-  <h3>🏅 Conquistas</h3><div id="achievements"></div>
-  <h3>💾 Backup</h3>
-  <div class="modal-actions"><button class="btn" id="export-btn">⬇️ Exportar backup</button>
-  <label class="btn" style="cursor:pointer">⬆️ Importar<input type="file" id="import-file" accept=".json" hidden></label></div>
+  <button class="btn primary" id="save-profile">Salvar perfil</button>
+  <h3>Conquistas</h3><div id="achievements"></div>
+  <h3>Backup</h3>
+  <div class="modal-actions"><button class="btn" id="export-btn">Exportar backup</button>
+  <label class="btn" style="cursor:pointer">Importar<input type="file" id="import-file" accept=".json" hidden></label></div>
 </div></div>
 
 <!-- Leaderboard modal -->
 <div class="modal" id="leaderboard-modal" hidden><div class="modal-box wide">
-  <button class="modal-close" data-close>✕</button><h2>🏆 Ranking Global</h2>
+  <button class="modal-close" data-close>✕</button><h2>Ranking global</h2>
   <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">
-    <button class="lb-tab active" data-sort="xp">⭐ XP</button><button class="lb-tab" data-sort="time">⏱️ Tempo</button><button class="lb-tab" data-sort="games">🎮 Jogos</button><button class="lb-tab" data-sort="streak">🔥 Streak</button>
+    <button class="lb-tab active" data-sort="xp">XP</button><button class="lb-tab" data-sort="time">Tempo</button><button class="lb-tab" data-sort="games">Jogos</button><button class="lb-tab" data-sort="streak">Streak</button>
   </div><div id="leaderboard-body"></div>
 </div></div>
 
 <!-- Studio modal -->
 <div class="modal" id="studio-modal" hidden><div class="modal-box wide">
-  <button class="modal-close" data-close>✕</button><h2>🎨 Estúdio de Personalização</h2>
+  <button class="modal-close" data-close>✕</button><h2>Personalização</h2>
   <div class="studio-grid">
-    <h3>🎨 Tema &amp; Cores</h3>
-    <div class="field"><label>Tema</label><select id="set-theme"><option value="neon">Neon (escuro)</option><option value="caderno">📓 Caderno (claro)</option><option value="oceano">🌊 Oceano</option><option value="por-do-sol">🌇 Pôr do Sol</option><option value="matrix">💚 Matrix</option><option value="dracula">🧛 Drácula</option><option value="ouro">🏆 Ouro</option><option value="sakura">🌸 Sakura</option></select></div>
+    <h3>Tema &amp; cores</h3>
+    <div class="field"><label>Tema</label><select id="set-theme"><option value="neon">Mentalista (vinho)</option><option value="caderno">Caderno (claro)</option><option value="oceano">Oceano</option><option value="por-do-sol">Pôr do sol</option><option value="matrix">Matrix</option><option value="dracula">Drácula</option><option value="ouro">Ouro</option><option value="sakura">Sakura</option></select></div>
     <div class="field"><label>Cor principal</label><input type="color" id="set-accent"></div>
     <div class="field"><label>Cor secundária</label><input type="color" id="set-accent2"></div>
     <div class="field"><label>Densidade dos cards</label><select id="set-density"><option value="normal">Normal</option><option value="compact">Compacta</option></select></div>
     <label class="switch">Efeito 3D nos cards <input type="checkbox" id="set-tilt"></label>
-    <h3>🌌 Background Interativo</h3>
-    <div class="field"><label>Modo</label><select id="set-bg"><option value="constellation">✨ Constelação</option><option value="grid">🔲 Grade</option><option value="aurora">🌈 Aurora</option><option value="matrix">💻 Matrix</option><option value="fireflies">🪲 Vaga-lumes</option><option value="chalkboard">🧑‍🏫 Quadro de Giz</option><option value="custom">🖼️ Imagem personalizada</option><option value="static">⏸️ Estático</option></select></div>
+    <h3>Background interativo</h3>
+    <div class="field"><label>Modo</label><select id="set-bg"><option value="constellation">Constelação</option><option value="grid">Grade</option><option value="aurora">Aurora</option><option value="matrix">Matrix</option><option value="fireflies">Vaga-lumes</option><option value="chalkboard">Quadro de giz</option><option value="custom">Imagem personalizada</option><option value="static">Estático</option></select></div>
     <div class="field"><label>URL de imagem de fundo</label><input type="text" id="set-bg-image" placeholder="https://…"></div>
     <div class="field"><label>Velocidade</label><input type="range" id="set-bg-speed" min="0.2" max="2.5" step="0.1"></div>
     <div class="field"><label>Densidade</label><input type="range" id="set-bg-density" min="0.4" max="1.8" step="0.1"></div>
     <label class="switch">Ondas ao clicar <input type="checkbox" id="set-ripples"></label>
-    <h3>🖱️ Cursor Customizado</h3>
-    <div class="field"><label>Estilo</label><select id="set-cursor"><option value="neon">Neon</option><option value="pixel">Pixel</option><option value="sword">Espada</option><option value="comet">Cometa</option><option value="crosshair">Mira</option><option value="duck">🦆 Pato</option><option value="pencil">✏️ Lápis</option><option value="default">Padrão</option></select></div>
+    <h3>Cursor customizado</h3>
+    <div class="field"><label>Estilo</label><select id="set-cursor"><option value="neon">Neon</option><option value="pixel">Pixel</option><option value="sword">Espada</option><option value="comet">Cometa</option><option value="crosshair">Mira</option><option value="duck">Pato</option><option value="pencil">Lápis</option><option value="default">Padrão</option></select></div>
     <div class="field"><label>Tamanho</label><input type="range" id="set-cursor-scale" min="0.6" max="1.3" step="0.05"></div>
     <label class="switch">Rastro de faíscas <input type="checkbox" id="set-cursor-trail"></label>
-    <h3>🔊 Som &amp; Jogo</h3>
+    <h3>Som &amp; jogo</h3>
     <div class="field"><label>Volume</label><input type="range" id="set-volume" min="0" max="1" step="0.05"></div>
     <div class="field"><label>CDN preferido</label><select id="set-cdn"></select></div>
     <label class="switch">Sons da interface <input type="checkbox" id="set-sound"></label>
     <label class="switch">HUD dentro do about:blank <input type="checkbox" id="set-hud"></label>
-    <h3>🎭 Camuflagem da Aba (Tab Cloak)</h3>
+    <h3>Camuflagem da aba (tab cloak)</h3>
     <div class="field"><label>Aparência da aba</label><select id="set-cloak"></select></div>
     <div class="field"><label>Título personalizado</label><input type="text" id="cloak-title" placeholder="Meu dever de casa"></div>
     <div class="field"><label>Ícone personalizado (URL)</label><input type="text" id="cloak-icon" placeholder="https://…/icon.png"></div>
@@ -131,29 +135,29 @@
     <div class="modal-actions">
       <button class="btn" id="apply-cloak-custom">Aplicar cloak personalizado</button>
       <button class="btn" id="apply-panic">Salvar pânico</button>
-      <button class="btn" id="panic-test">🚨 Testar pânico</button>
-      <button class="btn primary" id="open-blank-site">🕶️ Abrir o site inteiro em about:blank</button>
+      <button class="btn" id="panic-test">Testar pânico</button>
+      <button class="btn primary" id="open-blank-site">Abrir o site inteiro em about:blank</button>
     </div>
   </div>
 </div></div>
 
 <!-- Credits modal -->
 <div class="modal" id="credits-modal" hidden><div class="modal-box wide">
-  <button class="modal-close" data-close>✕</button><h2>ℹ️ Créditos</h2>
+  <button class="modal-close" data-close>✕</button><h2>Créditos</h2>
   <p style="color:var(--muted)">Este portal só existe graças às comunidades e criadores abaixo. Todos os jogos, artes e códigos pertencem aos seus autores originais.</p>
   <div id="credits-list"></div>
 </div></div>
 
 <!-- Popup blocked -->
 <div class="modal" id="popup-modal" hidden><div class="modal-box">
-  <h2>🚫 Pop-up bloqueado</h2>
+  <h2>Pop-up bloqueado</h2>
   <p style="color:var(--muted)">Seu navegador bloqueou a aba about:blank. Clique no botão abaixo (o navegador só permite com um clique direto) ou libere pop-ups para este site.</p>
-  <button class="btn primary" id="popup-open-btn">▶ Abrir jogo agora</button>
+  <button class="btn primary" id="popup-open-btn">Abrir jogo agora</button>
 </div></div>
 
 <!-- Chat drawer -->
 <aside id="chat-drawer">
-  <div class="chat-head"><strong>💬 Chat Global</strong><button class="icon-btn" id="chat-close">✕</button></div>
+  <div class="chat-head"><strong>Chat global</strong><button class="text-btn" id="chat-close">✕</button></div>
   <div class="chat-tabs">
     <button class="chat-tab active" data-ch="geral"># geral</button>
     <button class="chat-tab" data-ch="recomendacoes"># dicas</button>
@@ -166,7 +170,7 @@
 
 <!-- Panic overlay -->
 <div id="panic-overlay" hidden><div class="panic-wrap">
-  <h2>📚 Estudo Escolar — Atividade Avaliativa</h2>
+  <h2>Estudo Escolar — Atividade Avaliativa</h2>
   <p id="panic-subject"></p><p id="panic-progress"></p>
   <h3 id="panic-question"></h3><div id="panic-options"></div>
   <p id="panic-feedback"></p>
