@@ -1,0 +1,26 @@
+name: fetch-bikesense
+on:
+  push:
+    branches: [arena/a52a8ee4-estudoescolar]
+    paths: [.github/workflows/fetch-bikesense.yml]
+  workflow_dispatch:
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download catalogs from bikesense.org
+        run: |
+          mkdir -p out
+          curl -sL --retry 3 "https://bikesense.org/games/v1/providers/all" -o out/all.json
+          curl -sL --retry 3 "https://bikesense.org/games/v1/providers/selenite" -o out/selenite.json
+          curl -sL --retry 3 "https://bikesense.org/games/v1/providers/quasar" -o out/quasar.json
+          curl -sL --retry 3 "https://bikesense.org/games/v1/providers/ckv" -o out/ckv.json
+          curl -sL --retry 3 "https://bikesense.org/games/v1/providers/seraph" -o out/seraph.json
+          curl -sL --retry 3 "https://bikesense.org/games/v1/providers/truffled" -o out/truffled.json
+          curl -sL --retry 3 "https://bikesense.org/games/v1/providers/ugs" -o out/ugs.json
+          curl -sL --retry 3 "https://bikesense.org/api/astra/games" -o out/astra.json || true
+          ls -la out; head -c 300 out/all.json; echo
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bikesense-data
+          path: out/
