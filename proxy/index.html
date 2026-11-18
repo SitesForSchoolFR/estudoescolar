@@ -90,24 +90,44 @@
 
   // Bancos $scramjet criados vazios por versões antigas quebram o init:
   // apaga e deixa o controller recriar com todas as tabelas.
-  function healDb() {
+  var SJ_STORES = ["config", "cookies", "redirectTrackers", "referrerPolicies", "publicSuffixList"];
+  function dbHasStores() {
     return new Promise(function (resolve) {
-      var done = function () { resolve(); };
       try {
         var req = indexedDB.open("$scramjet");
         req.onsuccess = function () {
           var db = req.result;
-          var ok = db.objectStoreNames.contains("config") && db.objectStoreNames.contains("cookies");
-          db.close();
-          if (ok) return done();
-          var del = indexedDB.deleteDatabase("$scramjet");
-          del.onsuccess = done; del.onerror = done; del.onblocked = done;
-          setTimeout(done, 2500);
+          var ok = SJ_STORES.every(function (n) { return db.objectStoreNames.contains(n); });
+          db.close(); resolve(ok);
         };
-        req.onerror = done;
-      } catch (e) { done(); }
-      setTimeout(done, 4000);
+        req.onerror = function () { resolve(true); };
+      } catch (e) { resolve(true); }
     });
+  }
+  function deleteDbOnce(timeoutMs) {
+    return new Promise(function (resolve) {
+      var settled = false;
+      var finish = function (v) { if (!settled) { settled = true; resolve(v); } };
+      try {
+        var del = indexedDB.deleteDatabase("$scramjet");
+        del.onsuccess = function () { finish(true); };
+        del.onerror = function () { finish(false); };
+        del.onblocked = function () { /* espera as conexões antigas fecharem */ };
+      } catch (e) { finish(false); }
+      setTimeout(function () { finish(false); }, timeoutMs);
+    });
+  }
+  async function healDb() {
+    if (await dbHasStores()) return true;
+    log("Reparando dados antigos… (pode levar alguns segundos)");
+    // A exclusão fica bloqueada enquanto o SW antigo segura o banco aberto;
+    // insistir até conseguir de verdade (ele fecha ao ser substituído/parar).
+    for (var i = 0; i < 8; i++) {
+      if (await deleteDbOnce(5000)) return true;
+      if (await dbHasStores()) return true;
+      await new Promise(function (r) { setTimeout(r, 1200); });
+    }
+    return dbHasStores();
   }
 
   // Registra o SW (Scramjet + UV no mesmo arquivo) e sobe o transporte BareMux.
@@ -118,6 +138,7 @@
       log("Registrando o serviço…");
       var reg = await navigator.serviceWorker.register(CFG.swScript, { scope: CFG.swScope });
       if (reg.waiting) reg.waiting.postMessage({ type: "SKIP_WAITING" });
+      try { await reg.update(); } catch (e) {}
       await navigator.serviceWorker.ready;
       // Espera o SW assumir o controle da página (necessário p/ o Scramjet).
       if (!navigator.serviceWorker.controller) {

@@ -21,7 +21,7 @@
     basePath: basePath,
 
     // Service worker único (registra Scramjet + UV), escopo = esta pasta
-    swScript: new URL("sw.js", base).href,
+    swScript: new URL("sw.js?v=3", base).href, // ?v= força o navegador a pegar o SW novo
     swScope: basePath,
 
     // Prefixos (ficam dentro do escopo do SW)
