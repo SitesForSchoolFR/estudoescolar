@@ -1,0 +1,17 @@
+{
+  "name": "estudoescolar-proxy-backend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Backend Bare + WISP mínimo para o proxy do Estudo Escolar (Scramjet/Ultraviolet).",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@tomphttp/bare-server-node": "^2.0.6",
+    "wisp-server-node": "^1.1.8"
+  }
+}
