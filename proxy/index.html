@@ -88,6 +88,28 @@
     return v;
   }
 
+  // Bancos $scramjet criados vazios por versões antigas quebram o init:
+  // apaga e deixa o controller recriar com todas as tabelas.
+  function healDb() {
+    return new Promise(function (resolve) {
+      var done = function () { resolve(); };
+      try {
+        var req = indexedDB.open("$scramjet");
+        req.onsuccess = function () {
+          var db = req.result;
+          var ok = db.objectStoreNames.contains("config") && db.objectStoreNames.contains("cookies");
+          db.close();
+          if (ok) return done();
+          var del = indexedDB.deleteDatabase("$scramjet");
+          del.onsuccess = done; del.onerror = done; del.onblocked = done;
+          setTimeout(done, 2500);
+        };
+        req.onerror = done;
+      } catch (e) { done(); }
+      setTimeout(done, 4000);
+    });
+  }
+
   // Registra o SW (Scramjet + UV no mesmo arquivo) e sobe o transporte BareMux.
   function setup() {
     if (readyPromise) return readyPromise;
@@ -95,8 +117,16 @@
       if (!("serviceWorker" in navigator)) throw new Error("Este navegador não suporta Service Workers (use o Chrome).");
       log("Registrando o serviço…");
       var reg = await navigator.serviceWorker.register(CFG.swScript, { scope: CFG.swScope });
-      await navigator.serviceWorker.ready;
       if (reg.waiting) reg.waiting.postMessage({ type: "SKIP_WAITING" });
+      await navigator.serviceWorker.ready;
+      // Espera o SW assumir o controle da página (necessário p/ o Scramjet).
+      if (!navigator.serviceWorker.controller) {
+        await new Promise(function (r) {
+          navigator.serviceWorker.addEventListener("controllerchange", r, { once: true });
+          setTimeout(r, 3000);
+        });
+      }
+      await healDb();
 
       var baremux = await import(CFG.baremuxModule);
       connection = new baremux.BareMuxConnection(CFG.baremuxWorker);
@@ -106,7 +136,16 @@
         prefix: CFG.scramjetPrefix,
         files: CFG.scramjetFiles,
       });
-      await controller.init();
+      try {
+        await controller.init();
+      } catch (e) {
+        // Banco antigo/corrompido: apaga e tenta uma única vez de novo.
+        if (!/object stores was not found/i.test(String(e && e.message))) throw e;
+        log("Reparando dados antigos…");
+        await healDb();
+        controller = new ScramjetController({ prefix: CFG.scramjetPrefix, files: CFG.scramjetFiles });
+        await controller.init();
+      }
       log("Serviço pronto.");
       return true;
     })();
