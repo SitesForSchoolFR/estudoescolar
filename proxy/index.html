@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Material de Estudo</title>
+<meta name="description" content="Material de estudo — leitura complementar.">
+<style>
+  :root{--bg:#0B0D10;--surface:#12161C;--border:#232a33;--text:#EDEFF2;--muted:#9AA3AD;--accent:#7A0F1B;--accent2:#C8102E}
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;align-items:center;justify-content:center;padding:20px}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.5)); }
+  main{width:min(620px,100%);background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px;position:relative}
+  h1{margin:0 0 4px;font-size:1.05rem;letter-spacing:.16em;text-transform:uppercase}
+  h1::after{content:"";display:block;width:34px;height:2px;background:var(--accent);margin-top:9px}
+  p.sub{color:var(--muted);font-size:.88rem;margin:0 0 20px;line-height:1.55}
+  label{display:block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 7px}
+  input,select{width:100%;background:#0E1116;border:1px solid var(--border);border-radius:9px;color:var(--text);padding:12px 13px;font-size:.95rem}
+  input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
+  .row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+  button{flex:1;min-width:170px;border-radius:9px;padding:13px 16px;font-weight:700;font-size:.88rem;letter-spacing:.04em;cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:#fff;transition:background .15s,border-color .15s}
+  button:hover{background:var(--accent2);border-color:var(--accent2)}
+  button.secondary{background:transparent;border-color:var(--border);color:var(--text)}
+  button.secondary:hover{border-color:var(--text);background:transparent}
+  button:disabled{opacity:.55;cursor:wait}
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+  #status{margin-top:18px;font-size:.82rem;color:var(--muted);line-height:1.6;white-space:pre-wrap;word-break:break-word}
+  #status .err{color:#ff8a94}
+  a.back{color:var(--muted);font-size:.8rem;text-decoration:none}
+  a.back:hover{color:var(--text);text-decoration:underline;text-underline-offset:4px}
+  @media(max-width:560px){.opts{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Material de Estudo</h1>
+  <p class="sub">Abra o material complementar em tela cheia. Se um servidor não responder, tente o outro botão — ou troque o transporte.</p>
+
+  <form id="form">
+    <label for="url">Endereço do material</label>
+    <input id="url" type="text" spellcheck="false" autocomplete="off" value="https://tavvkkj.xyz/venice/original">
+    <div class="opts">
+      <div>
+        <label for="transport">Transporte</label>
+        <select id="transport">
+          <option value="epoxy" selected>Epoxy (WISP — recomendado)</option>
+          <option value="libcurl">Libcurl (WISP legado)</option>
+        </select>
+      </div>
+      <div>
+        <label for="engine">Servidor</label>
+        <select id="engine">
+          <option value="scramjet" selected>Automático</option>
+          <option value="uv">Alternativo</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <button type="submit" id="btn-scramjet">Abrir</button>
+      <button type="button" id="btn-uv" class="secondary">Abrir (alternativo)</button>
+    </div>
+  </form>
+  <div id="status" aria-live="polite"></div>
+  <p style="margin-top:20px"><a class="back" href="../index.html">← Voltar aos estudos</a></p>
+</main>
+
+<script src="config.js"></script>
+<script src="uv/uv.bundle.js"></script>
+<script src="uv/uv.config.js"></script>
+<script src="scramjet/scramjet.all.js"></script>
+<script>
+(function () {
+  "use strict";
+  var CFG = window.PROXY_CONFIG;
+  var statusEl = document.getElementById("status");
+  var connection = null, controller = null, currentTransport = null, readyPromise = null;
+
+  function log(msg, isErr) {
+    var line = document.createElement("div");
+    if (isErr) line.className = "err";
+    line.textContent = msg;
+    statusEl.appendChild(line);
+  }
+  function normalizeUrl(v) {
+    v = (v || "").trim();
+    if (!v) return CFG.target;
+    if (!/^https?:\/\//i.test(v)) v = "https://" + v;
+    return v;
+  }
+
+  // Registra o SW (Scramjet + UV no mesmo arquivo) e sobe o transporte BareMux.
+  function setup() {
+    if (readyPromise) return readyPromise;
+    readyPromise = (async function () {
+      if (!("serviceWorker" in navigator)) throw new Error("Este navegador não suporta Service Workers (use o Chrome).");
+      log("Registrando o serviço…");
+      var reg = await navigator.serviceWorker.register(CFG.swScript, { scope: CFG.swScope });
+      await navigator.serviceWorker.ready;
+      if (reg.waiting) reg.waiting.postMessage({ type: "SKIP_WAITING" });
+
+      var baremux = await import(CFG.baremuxModule);
+      connection = new baremux.BareMuxConnection(CFG.baremuxWorker);
+
+      var ScramjetController = $scramjetLoadController().ScramjetController;
+      controller = new ScramjetController({
+        prefix: CFG.scramjetPrefix,
+        files: CFG.scramjetFiles,
+      });
+      await controller.init();
+      log("Serviço pronto.");
+      return true;
+    })();
+    readyPromise.catch(function () { readyPromise = null; });
+    return readyPromise;
+  }
+
+  // Conecta o transporte (epoxy/libcurl) tentando cada WISP da lista.
+  async function setTransport(kind) {
+    if (currentTransport === kind) return;
+    var path = CFG.transports[kind];
+    var lastErr = null;
+    for (var i = 0; i < CFG.wispServers.length; i++) {
+      var wisp = CFG.wispServers[i];
+      try {
+        log("Conectando (" + kind + ")…");
+        await connection.setTransport(path, [{ wisp: wisp }]);
+        currentTransport = kind;
+        log("Conectado.");
+        return;
+      } catch (e) { lastErr = e; }
+    }
+    throw new Error("Nenhum servidor respondeu. Tente o outro botão ou mais tarde. " + (lastErr ? "(" + lastErr.message + ")" : ""));
+  }
+
+  // Abre a janela disfarçada (about:blank) com o conteúdo em tela cheia.
+  function openCloaked(srcUrl) {
+    var win = window.open("about:blank", "_blank");
+    if (!win) { log("O navegador bloqueou a nova janela. Permita pop-ups e tente de novo.", true); return; }
+    var fav = "https://fonts.gstatic.com/s/i/productlogos/meet_2020q4/v1/web-512dp/logo_meet_2020q4_color_2x_web_512dp.png";
+    win.document.write(
+      "<!DOCTYPE html><html><head><meta charset='utf-8'><title>Google Meet</title>" +
+      "<link rel='icon' href='" + fav + "'>" +
+      "<style>html,body{margin:0;height:100%;background:#202124}iframe{border:0;width:100%;height:100%;display:block}</style>" +
+      "</head><body><iframe src='" + srcUrl.replace(/'/g, "%27") + "' allow='camera;microphone;fullscreen;display-capture' allowfullscreen></iframe></body></html>"
+    );
+    win.document.close();
+  }
+
+  async function openWith(engine) {
+    var target = normalizeUrl(document.getElementById("url").value);
+    var kind = document.getElementById("transport").value;
+    var btns = document.querySelectorAll("button");
+    btns.forEach(function (b) { b.disabled = true; });
+    try {
+      await setup();
+      await setTransport(kind);
+      var src;
+      if (engine === "uv") {
+        src = location.origin + window.__uv$config.prefix + window.__uv$config.encodeUrl(target);
+      } else {
+        src = controller.encodeUrl(target);
+        if (!/^https?:\/\//.test(src)) src = location.origin + src;
+      }
+      log("Abrindo o material…");
+      openCloaked(src);
+    } catch (e) {
+      log("Erro: " + e.message, true);
+    } finally {
+      btns.forEach(function (b) { b.disabled = false; });
+    }
+  }
+
+  document.getElementById("form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    openWith(document.getElementById("engine").value === "uv" ? "uv" : "scramjet");
+  });
+  document.getElementById("btn-uv").addEventListener("click", function () { openWith("uv"); });
+  document.getElementById("transport").addEventListener("change", function () { currentTransport = null; });
+
+  setup().catch(function (e) { log("Erro ao preparar: " + e.message, true); });
+})();
+</script>
+</body>
+</html>
