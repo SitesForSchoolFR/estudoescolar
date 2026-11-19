@@ -69,6 +69,15 @@
       pelas fontes creditadas acima — nenhum jogo é hospedado ou modificado por nós. Todo o crédito é
       dos autores originais: apoie os desenvolvedores!
     </p>
+    <h4 style="margin-top:22px">Leve o Estudo Escolar para o seu site (open-source)</h4>
+    <p class="legal">Quer esse catálogo inteiro no seu site ou GitHub Pages? É grátis e open-source: cole este código em qualquer página HTML e os <strong>3.600+ jogos</strong> aparecem, com busca e abertura em about:blank. Pode modificar à vontade — só mantenha os créditos aos criadores originais.</p>
+    <pre class="embed-code" id="embed-code">&lt;div id="ee-games"&gt;&lt;/div&gt;
+
+&lt;script src="https://cdn.jsdelivr.net/gh/SitesForSchoolFR/estudoescolar@main/embed/ee-sdk.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  EE.init({ container: '#ee-games', theme: 'dark' });
+&lt;/script&gt;</pre>
+    <button class="btn" id="copy-embed" type="button">Copiar código</button>
     <p class="legal">
       É detentor de direitos sobre algum conteúdo e quer a remoção? Abra uma solicitação em
       <a href="https://github.com/SitesForSchoolFR/estudoescolar/issues" target="_blank" rel="noopener">github.com/SitesForSchoolFR/estudoescolar/issues</a>
@@ -204,5 +213,14 @@
 <script src="assets/js/launcher.js"></script>
 <script src="assets/js/social.js"></script>
 <script src="assets/js/app.js"></script>
+<script>
+document.getElementById('copy-embed').addEventListener('click', function () {
+  var code = document.getElementById('embed-code').innerText;
+  var btn = this;
+  function ok() { btn.textContent = 'Copiado!'; setTimeout(function () { btn.textContent = 'Copiar código'; }, 2000); }
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code).then(ok, ok);
+  else { var t = document.createElement('textarea'); t.value = code; document.body.appendChild(t); t.select(); try { document.execCommand('copy'); } catch (e) {} t.remove(); ok(); }
+});
+</script>
 </body>
 </html>

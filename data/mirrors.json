@@ -6,11 +6,7 @@
    "https://gcore.jsdelivr.net/gh/",
    "https://testingcf.jsdelivr.net/gh/",
    "https://originfastly.jsdelivr.net/gh/",
-   "https://quantil.jsdelivr.net/gh/",
-   "https://jsdelivr.b-cdn.net/gh/",
-   "https://cdn.jsdmirror.com/gh/",
-   "https://jsd.onmicrosoft.cn/gh/",
-   "https://raw.esm.sh/gh/"
+   "https://quantil.jsdelivr.net/gh/"
   ],
   "gnHtmlPath": "freebuisness/html@main/",
   "gnCoverPath": "freebuisness/covers@main/",
@@ -481,7 +477,7 @@
    "mirrors": [
     {
      "label": "sumiquillstudy.s3.amazonaws.com",
-     "url": "http://sumiquillstudy.s3.amazonaws.com/index.html"
+     "url": "https://sumiquillstudy.s3.amazonaws.com/index.html"
     },
     {
      "label": "s3.amazonaws.com",
@@ -999,7 +995,7 @@
     },
     {
      "label": "wow.atlantapubliceducation.cfd",
-     "url": "http://wow.atlantapubliceducation.cfd/"
+     "url": "https://wow.atlantapubliceducation.cfd/"
     },
     {
      "label": "education.herbsbynorthdaysimage.ca",
@@ -1029,7 +1025,7 @@
     },
     {
      "label": "yean.atlantapubliceducation.cfd",
-     "url": "http://yean.atlantapubliceducation.cfd/"
+     "url": "https://yean.atlantapubliceducation.cfd/"
     },
     {
      "label": "sudden.herbsbynorthdaysimage.ca",
