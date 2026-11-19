@@ -424,6 +424,650 @@
     {
      "label": "Página de jogos",
      "url": "https://bikesense.org/pages/games.html"
+    },
+    {
+     "label": "aokjezxu6bq.map.azionedge.net",
+     "url": "https://aokjezxu6bq.map.azionedge.net"
+    },
+    {
+     "label": "2rimjouwuyw.map.azionedge.net",
+     "url": "https://2rimjouwuyw.map.azionedge.net"
+    },
+    {
+     "label": "d1yd3j8ypn4f12.cloudfront.net",
+     "url": "https://d1yd3j8ypn4f12.cloudfront.net"
+    },
+    {
+     "label": "d2md2bc53t43kn.cloudfront.net",
+     "url": "https://d2md2bc53t43kn.cloudfront.net"
+    },
+    {
+     "label": "d3uzrhklzdl2e5.cloudfront.net",
+     "url": "https://d3uzrhklzdl2e5.cloudfront.net"
+    },
+    {
+     "label": "dz2z1x7nmgnek.cloudfront.net",
+     "url": "https://dz2z1x7nmgnek.cloudfront.net"
+    },
+    {
+     "label": "d3acwuwzmsce84.cloudfront.net",
+     "url": "https://d3acwuwzmsce84.cloudfront.net"
+    },
+    {
+     "label": "2bkyzwcgwsq.map.azionedge.net",
+     "url": "https://2bkyzwcgwsq.map.azionedge.net"
+    },
+    {
+     "label": "hk1mobtpluy.map.azionedge.net",
+     "url": "https://hk1mobtpluy.map.azionedge.net"
+    },
+    {
+     "label": "kjfexwdq6eg.map.azionedge.net",
+     "url": "https://kjfexwdq6eg.map.azionedge.net"
+    },
+    {
+     "label": "judg0kzqjeu.map.azionedge.net",
+     "url": "https://judg0kzqjeu.map.azionedge.net"
+    }
+   ]
+  },
+  {
+   "id": "portal-sumi",
+   "name": "Sumi",
+   "badge": "Portal parceiro",
+   "color": "#7A0F1B",
+   "description": "Portal Sumi (quillstudy/sumimath) — jogos e ferramentas de estudo no navegador.",
+   "credit": "Equipe Sumi",
+   "mirrors": [
+    {
+     "label": "sumiquillstudy.s3.amazonaws.com",
+     "url": "http://sumiquillstudy.s3.amazonaws.com/index.html"
+    },
+    {
+     "label": "s3.amazonaws.com",
+     "url": "https://s3.amazonaws.com/quillstudy/index.html"
+    },
+    {
+     "label": "quillstudy.s3.amazonaws.com",
+     "url": "https://quillstudy.s3.amazonaws.com/index.html"
+    },
+    {
+     "label": "sumimath.s3.us-east-1.amazonaws.com",
+     "url": "https://sumimath.s3.us-east-1.amazonaws.com/index.html"
+    },
+    {
+     "label": "sumimath.s3.amazonaws.com",
+     "url": "https://sumimath.s3.amazonaws.com/index.html"
+    },
+    {
+     "label": "sumi.magmaproject.net",
+     "url": "https://sumi.magmaproject.net"
+    }
+   ]
+  },
+  {
+   "id": "portal-rook",
+   "name": "Rook",
+   "badge": "Portal parceiro",
+   "color": "#7A0F1B",
+   "description": "Portal Rook (aibabyy) — biblioteca de jogos de navegador.",
+   "credit": "Equipe Rook",
+   "mirrors": [
+    {
+     "label": "aibabyy.s3-external-1.amazonaws.com",
+     "url": "https://aibabyy.s3-external-1.amazonaws.com/index.svg"
+    },
+    {
+     "label": "s3.amazonaws.com",
+     "url": "https://s3.amazonaws.com/aibabyy/index.html"
+    },
+    {
+     "label": "aibabyy.s3.amazonaws.com",
+     "url": "https://aibabyy.s3.amazonaws.com/index.svg"
+    },
+    {
+     "label": "aibabyy.s3.amazonaws.com",
+     "url": "https://aibabyy.s3.amazonaws.com/index.html"
+    },
+    {
+     "label": "rooklesson.us-lax-4.linodeobjects.com",
+     "url": "https://rooklesson.us-lax-4.linodeobjects.com/index.svg"
+    },
+    {
+     "label": "us-lax-4.linodeobjects.com",
+     "url": "https://us-lax-4.linodeobjects.com/rook/index.svg"
+    },
+    {
+     "label": "us-lax-4.linodeobjects.com",
+     "url": "https://us-lax-4.linodeobjects.com/rookdesk/index.svg"
+    },
+    {
+     "label": "rook.us-lax-4.linodeobjects.com",
+     "url": "https://rook.us-lax-4.linodeobjects.com/index.svg"
+    },
+    {
+     "label": "rookdesk.us-lax-4.linodeobjects.com",
+     "url": "https://rookdesk.us-lax-4.linodeobjects.com/index.svg"
+    },
+    {
+     "label": "rook.magmaproject.net",
+     "url": "https://rook.magmaproject.net"
+    }
+   ]
+  },
+  {
+   "id": "portal-tungtung",
+   "name": "TungTung",
+   "badge": "Portal parceiro",
+   "color": "#7A0F1B",
+   "description": "Portal TungTung (thinkbabyy) — jogos de navegador.",
+   "credit": "Equipe TungTung",
+   "mirrors": [
+    {
+     "label": "s3.amazonaws.com",
+     "url": "https://s3.amazonaws.com/thinkbabyy/index.html"
+    },
+    {
+     "label": "thinkbabyy.s3.amazonaws.com",
+     "url": "https://thinkbabyy.s3.amazonaws.com/index.html"
+    },
+    {
+     "label": "thinkbabyy.s3-external-1.amazonaws.com",
+     "url": "https://thinkbabyy.s3-external-1.amazonaws.com/index.html"
+    },
+    {
+     "label": "s3.us-east-1.amazonaws.com",
+     "url": "https://s3.us-east-1.amazonaws.com/thinkbabyy/index.html"
+    },
+    {
+     "label": "d39syz90mj03qm.cloudfront.net",
+     "url": "https://d39syz90mj03qm.cloudfront.net"
+    },
+    {
+     "label": "dxi6kxkjfsswh.cloudfront.net",
+     "url": "https://dxi6kxkjfsswh.cloudfront.net"
+    },
+    {
+     "label": "d2dqerhwqxradi.cloudfront.net",
+     "url": "https://d2dqerhwqxradi.cloudfront.net"
+    },
+    {
+     "label": "tungtung.magmaproject.net",
+     "url": "https://tungtung.magmaproject.net"
+    }
+   ]
+  },
+  {
+   "id": "portal-kite",
+   "name": "KITE",
+   "badge": "Portal parceiro",
+   "color": "#7A0F1B",
+   "description": "Portal KITE (notewell/studyloft/quizdesk) — jogos e quizzes no navegador.",
+   "credit": "Equipe KITE",
+   "mirrors": [
+    {
+     "label": "notewell.us-lax-4.linodeobjects.com",
+     "url": "https://notewell.us-lax-4.linodeobjects.com/index.html"
+    },
+    {
+     "label": "studyloft.us-lax-4.linodeobjects.com",
+     "url": "https://studyloft.us-lax-4.linodeobjects.com/index.html"
+    },
+    {
+     "label": "us-lax-4.linodeobjects.com",
+     "url": "https://us-lax-4.linodeobjects.com/notewell/index.html"
+    },
+    {
+     "label": "quizdesk.us-lax-4.linodeobjects.com",
+     "url": "https://quizdesk.us-lax-4.linodeobjects.com/index.html"
+    },
+    {
+     "label": "us-lax-4.linodeobjects.com",
+     "url": "https://us-lax-4.linodeobjects.com/quizdesk/index.html"
+    },
+    {
+     "label": "us-lax-4.linodeobjects.com",
+     "url": "https://us-lax-4.linodeobjects.com/lessonhub/index.html"
+    },
+    {
+     "label": "us-lax-4.linodeobjects.com",
+     "url": "https://us-lax-4.linodeobjects.com/studyloft/index.html"
+    },
+    {
+     "label": "kite.magmaproject.net",
+     "url": "https://kite.magmaproject.net"
+    }
+   ]
+  },
+  {
+   "id": "portal-interstellar",
+   "name": "Interstellar",
+   "badge": "Portal parceiro",
+   "color": "#7A0F1B",
+   "description": "Interstellar — portal de jogos e apps no navegador (cedarloft/oakprep).",
+   "credit": "Equipe Interstellar",
+   "mirrors": [
+    {
+     "label": "cedarloft.us-lax-4.linodeobjects.com",
+     "url": "https://cedarloft.us-lax-4.linodeobjects.com/index.html"
+    },
+    {
+     "label": "oakprep.us-lax-4.linodeobjects.com",
+     "url": "https://oakprep.us-lax-4.linodeobjects.com/index.html"
+    },
+    {
+     "label": "interstellar.magmaproject.net",
+     "url": "https://interstellar.magmaproject.net"
+    }
+   ]
+  },
+  {
+   "id": "portal-dogeub",
+   "name": "DogeUB",
+   "badge": "Portal parceiro",
+   "color": "#7A0F1B",
+   "description": "DogeUB (learnhive/studygate) — jogos de navegador.",
+   "credit": "Equipe DogeUB",
+   "mirrors": [
+    {
+     "label": "learnhive.us-lax-4.linodeobjects.com",
+     "url": "https://learnhive.us-lax-4.linodeobjects.com/index.html"
+    },
+    {
+     "label": "us-lax-4.linodeobjects.com",
+     "url": "https://us-lax-4.linodeobjects.com/studygate/index.html"
+    },
+    {
+     "label": "studygate.us-lax-4.linodeobjects.com",
+     "url": "https://studygate.us-lax-4.linodeobjects.com/index.html"
+    },
+    {
+     "label": "dogeub.magmaproject.net",
+     "url": "https://dogeub.magmaproject.net"
+    }
+   ]
+  },
+  {
+   "id": "portal-astral",
+   "name": "Astral",
+   "badge": "Portal parceiro",
+   "color": "#7A0F1B",
+   "description": "Astral (psatprep) — jogos de navegador.",
+   "credit": "Equipe Astral",
+   "mirrors": [
+    {
+     "label": "psatprep.s3.amazonaws.com",
+     "url": "https://psatprep.s3.amazonaws.com/index.html"
+    },
+    {
+     "label": "s3.amazonaws.com",
+     "url": "https://s3.amazonaws.com/psatprep/index.html"
+    },
+    {
+     "label": "d12esrtqbw0ueh.cloudfront.net",
+     "url": "https://d12esrtqbw0ueh.cloudfront.net"
+    }
+   ]
+  },
+  {
+   "id": "portal-refract",
+   "name": "Refract",
+   "badge": "Portal parceiro",
+   "color": "#7A0F1B",
+   "description": "Refract — portal de jogos de navegador.",
+   "credit": "Equipe Refract",
+   "mirrors": [
+    {
+     "label": "d65ntvxoot46b.cloudfront.net",
+     "url": "https://d65ntvxoot46b.cloudfront.net"
+    },
+    {
+     "label": "dolx69675hbws.cloudfront.net",
+     "url": "https://dolx69675hbws.cloudfront.net"
+    },
+    {
+     "label": "dbv5jzwuxfrc8.cloudfront.net",
+     "url": "https://dbv5jzwuxfrc8.cloudfront.net"
+    },
+    {
+     "label": "d2psxljgjvhk1.cloudfront.net",
+     "url": "https://d2psxljgjvhk1.cloudfront.net"
+    },
+    {
+     "label": "dpmfro18vgvab.cloudfront.net",
+     "url": "https://dpmfro18vgvab.cloudfront.net"
+    }
+   ]
+  },
+  {
+   "id": "portal-studyhub",
+   "name": "StudyHub",
+   "badge": "Portal parceiro",
+   "color": "#7A0F1B",
+   "description": "StudyHub (brightdesk) — jogos e estudo no navegador.",
+   "credit": "Equipe StudyHub",
+   "mirrors": [
+    {
+     "label": "dzbjxct0c9fxq.cloudfront.net",
+     "url": "https://dzbjxct0c9fxq.cloudfront.net"
+    },
+    {
+     "label": "brightdesk.s3.amazonaws.com",
+     "url": "https://brightdesk.s3.amazonaws.com/index.html"
+    },
+    {
+     "label": "studyhub.magmaproject.net",
+     "url": "https://studyhub.magmaproject.net"
+    }
+   ]
+  },
+  {
+   "id": "portal-glim",
+   "name": "Glim",
+   "badge": "Portal parceiro",
+   "color": "#7A0F1B",
+   "description": "Glim (deskloft) — jogos de navegador.",
+   "credit": "Equipe Glim",
+   "mirrors": [
+    {
+     "label": "s3.amazonaws.com",
+     "url": "https://s3.amazonaws.com/deskloft/index.html"
+    },
+    {
+     "label": "s3.us-east-1.amazonaws.com",
+     "url": "https://s3.us-east-1.amazonaws.com/deskloft/index.html"
+    },
+    {
+     "label": "s3-external-1.amazonaws.com",
+     "url": "https://s3-external-1.amazonaws.com/deskloft/index.html"
+    }
+   ]
+  },
+  {
+   "id": "portal-onyx",
+   "name": "Onyx",
+   "badge": "Portal parceiro",
+   "color": "#7A0F1B",
+   "description": "Onyx (onyxstudy) — jogos de navegador.",
+   "credit": "Equipe Onyx",
+   "mirrors": [
+    {
+     "label": "s3.amazonaws.com",
+     "url": "https://s3.amazonaws.com/onyxstudy/index.html"
+    },
+    {
+     "label": "onyxstudy.s3.amazonaws.com",
+     "url": "https://onyxstudy.s3.amazonaws.com/index.html"
+    },
+    {
+     "label": "s3.us-east-1.amazonaws.com",
+     "url": "https://s3.us-east-1.amazonaws.com/onyxstudy/index.html"
+    },
+    {
+     "label": "onyx.magmaproject.net",
+     "url": "https://onyx.magmaproject.net"
+    }
+   ]
+  },
+  {
+   "id": "portal-lunar",
+   "name": "Lunar",
+   "badge": "Portal parceiro",
+   "color": "#7A0F1B",
+   "description": "Lunar (fernprep) — jogos de navegador.",
+   "credit": "Equipe Lunar",
+   "mirrors": [
+    {
+     "label": "s3.us-east-1.amazonaws.com",
+     "url": "https://s3.us-east-1.amazonaws.com/fernprep/index.html"
+    },
+    {
+     "label": "fernprep.s3.amazonaws.com",
+     "url": "https://fernprep.s3.amazonaws.com/index.html"
+    },
+    {
+     "label": "fernprep.s3.us-east-1.amazonaws.com",
+     "url": "https://fernprep.s3.us-east-1.amazonaws.com/index.html"
+    },
+    {
+     "label": "lunar.magmaproject.net",
+     "url": "https://lunar.magmaproject.net"
+    }
+   ]
+  },
+  {
+   "id": "portal-solara",
+   "name": "SolaraOS",
+   "badge": "Portal parceiro",
+   "color": "#7A0F1B",
+   "description": "SolaraOS (quizharbor) — sistema/jogos no navegador.",
+   "credit": "Equipe Solara",
+   "mirrors": [
+    {
+     "label": "s3.amazonaws.com",
+     "url": "https://s3.amazonaws.com/quizharbor/index.svg"
+    },
+    {
+     "label": "s3.us-east-1.amazonaws.com",
+     "url": "https://s3.us-east-1.amazonaws.com/quizharbor/index.svg"
+    },
+    {
+     "label": "solara.magmaproject.net",
+     "url": "https://solara.magmaproject.net"
+    }
+   ]
+  },
+  {
+   "id": "portal-strawberri",
+   "name": "Strawberri",
+   "badge": "Portal parceiro",
+   "color": "#7A0F1B",
+   "description": "Strawberri — portal de jogos de navegador.",
+   "credit": "Equipe Strawberri",
+   "mirrors": [
+    {
+     "label": "d3ff66h1gfilcx.cloudfront.net",
+     "url": "https://d3ff66h1gfilcx.cloudfront.net"
+    },
+    {
+     "label": "d27kls5vqpzzgb.cloudfront.net",
+     "url": "https://d27kls5vqpzzgb.cloudfront.net"
+    },
+    {
+     "label": "d1hgfkw9ehuhoa.cloudfront.net",
+     "url": "https://d1hgfkw9ehuhoa.cloudfront.net"
+    },
+    {
+     "label": "strawberri123.s3-fips.us-west-1.amazonaws.com",
+     "url": "https://strawberri123.s3-fips.us-west-1.amazonaws.com/index.html"
+    }
+   ]
+  },
+  {
+   "id": "portal-fern",
+   "name": "Fern",
+   "badge": "Portal parceiro",
+   "color": "#7A0F1B",
+   "description": "Fern — portal de jogos de navegador.",
+   "credit": "Equipe Fern",
+   "mirrors": [
+    {
+     "label": "d2pve9ohgwdz6v.cloudfront.net",
+     "url": "https://d2pve9ohgwdz6v.cloudfront.net"
+    },
+    {
+     "label": "fern123site.s3.us-west-1.amazonaws.com",
+     "url": "https://fern123site.s3.us-west-1.amazonaws.com/index.html"
+    }
+   ]
+  },
+  {
+   "id": "portal-magma",
+   "name": "Magma Project",
+   "badge": "Rede de portais",
+   "color": "#7A0F1B",
+   "description": "Rede Magma Project: Voya, Aurora, Utopia, Triple T HD, Space, Cinera, Stroud, Boba e Flver.",
+   "credit": "Magma Project",
+   "mirrors": [
+    {
+     "label": "flver.magmaproject.net",
+     "url": "https://flver.magmaproject.net"
+    },
+    {
+     "label": "voya.magmaproject.net",
+     "url": "https://voya.magmaproject.net"
+    },
+    {
+     "label": "aurora.magmaproject.net",
+     "url": "https://aurora.magmaproject.net"
+    },
+    {
+     "label": "utopia.magmaproject.net",
+     "url": "https://utopia.magmaproject.net"
+    },
+    {
+     "label": "triple.magmaproject.net",
+     "url": "https://triple.magmaproject.net"
+    },
+    {
+     "label": "space.magmaproject.net",
+     "url": "https://space.magmaproject.net"
+    },
+    {
+     "label": "cinera.magmaproject.net",
+     "url": "https://cinera.magmaproject.net"
+    },
+    {
+     "label": "strob.magmaproject.net",
+     "url": "https://strob.magmaproject.net"
+    },
+    {
+     "label": "boba.magmaproject.net",
+     "url": "https://boba.magmaproject.net"
+    }
+   ]
+  },
+  {
+   "id": "portal-xylora",
+   "name": "Xylora",
+   "badge": "Portal parceiro",
+   "color": "#7A0F1B",
+   "description": "Xylora — portal educacional/jogos com vários mirrors.",
+   "credit": "Equipe Xylora",
+   "mirrors": [
+    {
+     "label": "xylora.nwmteducationalcoop.org",
+     "url": "https://xylora.nwmteducationalcoop.org/"
+    },
+    {
+     "label": "neator.site",
+     "url": "https://neator.site/"
+    },
+    {
+     "label": "atlantapubliceducation.cfd",
+     "url": "https://atlantapubliceducation.cfd/"
+    },
+    {
+     "label": "seniorseducation.orbitnetworkss.org",
+     "url": "https://seniorseducation.orbitnetworkss.org/"
+    },
+    {
+     "label": "senior.herbsbynorthdaysimage.ca",
+     "url": "https://senior.herbsbynorthdaysimage.ca/"
+    },
+    {
+     "label": "apples.hotelupgrade.com",
+     "url": "https://apples.hotelupgrade.com/"
+    },
+    {
+     "label": "kick.aussieflagsandflagpoles.com.au",
+     "url": "https://kick.aussieflagsandflagpoles.com.au/"
+    }
+   ]
+  },
+  {
+   "id": "portal-galaxy",
+   "name": "Galaxy v7",
+   "badge": "Portal parceiro",
+   "color": "#7A0F1B",
+   "description": "Galaxy v7 — portal de jogos de navegador.",
+   "credit": "Equipe Galaxy",
+   "mirrors": [
+    {
+     "label": "galaxy.nwmteducationalcoop.org",
+     "url": "https://galaxy.nwmteducationalcoop.org/"
+    },
+    {
+     "label": "wow.atlantapubliceducation.cfd",
+     "url": "http://wow.atlantapubliceducation.cfd/"
+    },
+    {
+     "label": "education.herbsbynorthdaysimage.ca",
+     "url": "https://education.herbsbynorthdaysimage.ca/"
+    },
+    {
+     "label": "backup.hotelupgrade.com",
+     "url": "https://backup.hotelupgrade.com/"
+    },
+    {
+     "label": "bigger.aussieflagsandflagpoles.com.au",
+     "url": "https://bigger.aussieflagsandflagpoles.com.au/"
+    }
+   ]
+  },
+  {
+   "id": "portal-cherri",
+   "name": "Cherri",
+   "badge": "Portal parceiro",
+   "color": "#7A0F1B",
+   "description": "Cherri — portal de jogos de navegador.",
+   "credit": "Equipe Cherri",
+   "mirrors": [
+    {
+     "label": "cherri.nwmteducationalcoop.org",
+     "url": "https://cherri.nwmteducationalcoop.org/"
+    },
+    {
+     "label": "yean.atlantapubliceducation.cfd",
+     "url": "http://yean.atlantapubliceducation.cfd/"
+    },
+    {
+     "label": "sudden.herbsbynorthdaysimage.ca",
+     "url": "https://sudden.herbsbynorthdaysimage.ca/"
+    },
+    {
+     "label": "bitter.hotelupgrade.com",
+     "url": "https://bitter.hotelupgrade.com/"
+    },
+    {
+     "label": "lasting.aussieflagsandflagpoles.com.au",
+     "url": "https://lasting.aussieflagsandflagpoles.com.au/"
+    }
+   ]
+  },
+  {
+   "id": "portal-opium",
+   "name": "Opium",
+   "badge": "Portal parceiro",
+   "color": "#7A0F1B",
+   "description": "Opium — portal de jogos de navegador (cleverlearning/gclassroom).",
+   "credit": "Equipe Opium",
+   "mirrors": [
+    {
+     "label": "tinyurl.com",
+     "url": "https://tinyurl.com/opiumdotbest"
+    },
+    {
+     "label": "opm.d2ftp8cchfyksh.amplifyapp.com",
+     "url": "https://opm.d2ftp8cchfyksh.amplifyapp.com/"
+    },
+    {
+     "label": "s3.amazonaws.com",
+     "url": "https://s3.amazonaws.com/cleverlearning/study"
+    },
+    {
+     "label": "storage.googleapis.com",
+     "url": "https://storage.googleapis.com/gclassroom/study.html"
     }
    ]
   }
@@ -515,6 +1159,126 @@
    "role": "Portal de jogos agregando Selenite, Quasar, CKV, Seraph, Truffled e UGS",
    "authors": "Equipe Achroma (achroma-ubg)",
    "countLabel": "1.719 jogos novos integrados + 1.021 fontes extras (2.740 no total)"
+  },
+  {
+   "name": "Sumi",
+   "role": "Portal parceiro integrado à aba Portais",
+   "authors": "Equipe Sumi",
+   "countLabel": "6 links/mirrors adicionados"
+  },
+  {
+   "name": "Rook",
+   "role": "Portal parceiro integrado à aba Portais",
+   "authors": "Equipe Rook",
+   "countLabel": "10 links/mirrors adicionados"
+  },
+  {
+   "name": "TungTung",
+   "role": "Portal parceiro integrado à aba Portais",
+   "authors": "Equipe TungTung",
+   "countLabel": "8 links/mirrors adicionados"
+  },
+  {
+   "name": "KITE",
+   "role": "Portal parceiro integrado à aba Portais",
+   "authors": "Equipe KITE",
+   "countLabel": "8 links/mirrors adicionados"
+  },
+  {
+   "name": "Interstellar",
+   "role": "Portal parceiro integrado à aba Portais",
+   "authors": "Equipe Interstellar",
+   "countLabel": "3 links/mirrors adicionados"
+  },
+  {
+   "name": "DogeUB",
+   "role": "Portal parceiro integrado à aba Portais",
+   "authors": "Equipe DogeUB",
+   "countLabel": "4 links/mirrors adicionados"
+  },
+  {
+   "name": "Astral",
+   "role": "Portal parceiro integrado à aba Portais",
+   "authors": "Equipe Astral",
+   "countLabel": "3 links/mirrors adicionados"
+  },
+  {
+   "name": "Refract",
+   "role": "Portal parceiro integrado à aba Portais",
+   "authors": "Equipe Refract",
+   "countLabel": "5 links/mirrors adicionados"
+  },
+  {
+   "name": "StudyHub",
+   "role": "Portal parceiro integrado à aba Portais",
+   "authors": "Equipe StudyHub",
+   "countLabel": "3 links/mirrors adicionados"
+  },
+  {
+   "name": "Glim",
+   "role": "Portal parceiro integrado à aba Portais",
+   "authors": "Equipe Glim",
+   "countLabel": "3 links/mirrors adicionados"
+  },
+  {
+   "name": "Onyx",
+   "role": "Portal parceiro integrado à aba Portais",
+   "authors": "Equipe Onyx",
+   "countLabel": "4 links/mirrors adicionados"
+  },
+  {
+   "name": "Lunar",
+   "role": "Portal parceiro integrado à aba Portais",
+   "authors": "Equipe Lunar",
+   "countLabel": "4 links/mirrors adicionados"
+  },
+  {
+   "name": "SolaraOS",
+   "role": "Portal parceiro integrado à aba Portais",
+   "authors": "Equipe Solara",
+   "countLabel": "3 links/mirrors adicionados"
+  },
+  {
+   "name": "Strawberri",
+   "role": "Portal parceiro integrado à aba Portais",
+   "authors": "Equipe Strawberri",
+   "countLabel": "4 links/mirrors adicionados"
+  },
+  {
+   "name": "Fern",
+   "role": "Portal parceiro integrado à aba Portais",
+   "authors": "Equipe Fern",
+   "countLabel": "2 links/mirrors adicionados"
+  },
+  {
+   "name": "Magma Project",
+   "role": "Portal parceiro integrado à aba Portais",
+   "authors": "Magma Project",
+   "countLabel": "9 links/mirrors adicionados"
+  },
+  {
+   "name": "Xylora",
+   "role": "Portal parceiro integrado à aba Portais",
+   "authors": "Equipe Xylora",
+   "countLabel": "7 links/mirrors adicionados"
+  },
+  {
+   "name": "Galaxy v7",
+   "role": "Portal parceiro integrado à aba Portais",
+   "authors": "Equipe Galaxy",
+   "countLabel": "5 links/mirrors adicionados"
+  },
+  {
+   "name": "Cherri",
+   "role": "Portal parceiro integrado à aba Portais",
+   "authors": "Equipe Cherri",
+   "countLabel": "5 links/mirrors adicionados"
+  },
+  {
+   "name": "Opium",
+   "role": "Portal parceiro integrado à aba Portais",
+   "authors": "Equipe Opium",
+   "countLabel": "4 links/mirrors adicionados"
   }
  ]
 }
