@@ -222,13 +222,30 @@
         if (!/^https?:\/\//.test(src)) src = location.origin + src;
       }
       log("Abrindo o material…");
-      openCloaked(src);
+      if (embedMode) {
+        document.body.innerHTML = "";
+        document.body.style.cssText = "margin:0;background:#0B0D10";
+        var fr = document.createElement("iframe");
+        fr.src = src;
+        fr.setAttribute("allow", "fullscreen;gamepad;autoplay");
+        fr.allowFullscreen = true;
+        fr.style.cssText = "border:0;width:100vw;height:100dvh;display:block";
+        document.body.appendChild(fr);
+      } else {
+        openCloaked(src);
+      }
     } catch (e) {
       log("Erro: " + e.message, true);
     } finally {
       btns.forEach(function (b) { b.disabled = false; });
     }
   }
+
+  var params = new URLSearchParams(location.search);
+  var embedMode = params.get("embed") === "1";
+  var paramUrl = params.get("url");
+  if (paramUrl) document.getElementById("url").value = paramUrl;
+  if (params.get("engine") === "uv") document.getElementById("engine").value = "uv";
 
   document.getElementById("form").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -237,7 +254,11 @@
   document.getElementById("btn-uv").addEventListener("click", function () { openWith("uv"); });
   document.getElementById("transport").addEventListener("change", function () { currentTransport = null; });
 
-  setup().catch(function (e) { log("Erro ao preparar: " + e.message, true); });
+  setup().then(function () {
+    if (paramUrl && (embedMode || params.get("auto") === "1")) {
+      openWith(params.get("engine") === "uv" ? "uv" : "scramjet");
+    }
+  }).catch(function (e) { log("Erro ao preparar: " + e.message, true); });
 })();
 </script>
 </body>

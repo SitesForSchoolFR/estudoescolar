@@ -1066,6 +1066,69 @@
      "url": "https://storage.googleapis.com/gclassroom/study.html"
     }
    ]
+  },
+  {
+   "id": "portal-astra-proxy",
+   "name": "Astra (via Proxy EE)",
+   "badge": "Abre com Scramjet",
+   "color": "#7A0F1B",
+   "via": "proxy",
+   "description": "Rede Astra: estes sites abrem DENTRO do Estudo Escolar através do nosso proxy (Scramjet v2, com Ultraviolet de reserva na página do proxy) — sem sair do EE e em about:blank. Se um mirror falhar, escolha outro na lista.",
+   "credit": "Astra (dragonx-astra) e mantenedores dos mirrors",
+   "mirrors": [
+    {
+     "label": "sixseven.chanka.com",
+     "url": "https://sixseven.chanka.com"
+    },
+    {
+     "label": "astra-bull.noble-house.tk",
+     "url": "https://astra-bull.noble-house.tk"
+    },
+    {
+     "label": "animals.solidaritysafaris.com",
+     "url": "https://animals.solidaritysafaris.com"
+    },
+    {
+     "label": "bull.solidaritysafaris.com",
+     "url": "https://bull.solidaritysafaris.com"
+    },
+    {
+     "label": "info.veranda.co.id",
+     "url": "https://info.veranda.co.id"
+    },
+    {
+     "label": "tra.ipdz.com",
+     "url": "https://tra.ipdz.com"
+    },
+    {
+     "label": "astra-education.top",
+     "url": "https://astra-education.top"
+    },
+    {
+     "label": "oqyo.corea.is",
+     "url": "https://oqyo.corea.is"
+    },
+    {
+     "label": "ryym.corea.is",
+     "url": "https://ryym.corea.is"
+    },
+    {
+     "label": "svoe.corea.is",
+     "url": "https://svoe.corea.is"
+    },
+    {
+     "label": "dvkfb.corea.is",
+     "url": "https://dvkfb.corea.is"
+    },
+    {
+     "label": "nxxzx.corea.is",
+     "url": "https://nxxzx.corea.is"
+    },
+    {
+     "label": "astra.apexflightacademy.com",
+     "url": "https://astra.apexflightacademy.com/"
+    }
+   ]
   }
  ],
  "credits": [
@@ -1275,6 +1338,12 @@
    "role": "Portal parceiro integrado à aba Portais",
    "authors": "Equipe Opium",
    "countLabel": "4 links/mirrors adicionados"
+  },
+  {
+   "name": "Astra (dragonx-astra)",
+   "role": "Rede de sites de jogos abertos via Proxy EE (Scramjet/Ultraviolet)",
+   "authors": "dragonx-astra e mantenedores dos mirrors",
+   "countLabel": "13 mirrors adicionados"
   }
  ]
 }

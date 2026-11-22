@@ -146,7 +146,9 @@ function bind(){
   const fav=e.target.closest('[data-fav]'); if(fav){e.stopPropagation();const added=ProfileStore.toggleFavorite(fav.dataset.fav);fav.classList.toggle('active',added);toast(added?'Adicionado aos favoritos':'Removido dos Favoritos');return}
   const card=e.target.closest('.game-card'); if(card){const g=games.find(x=>x.id===card.dataset.id);if(g)openGame(g);return}
   const hero=e.target.closest('[data-hero]'); if(hero){const g=games.find(x=>x.id===hero.dataset.hero);if(g)openGame(g);return}
-  const portal=e.target.closest('[data-portal]'); if(portal){const p=mirrors.portals.find(x=>x.id===portal.dataset.portal);const sel=document.querySelector(`[data-portal-mirror="${p.id}"]`);GameLauncher.launchPortal(p,Number(sel?.value||0));return}
+  const portal=e.target.closest('[data-portal]'); if(portal){const p=mirrors.portals.find(x=>x.id===portal.dataset.portal);const sel=document.querySelector(`[data-portal-mirror="${p.id}"]`);const idx=Number(sel?.value||0);
+  if(p.via==='proxy'){const target=p.mirrors[idx]?.url||p.mirrors[0].url;const proxyUrl=new URL('proxy/',location.href).href+'?url='+encodeURIComponent(target)+'&engine=scramjet&embed=1';GameLauncher.launchPortal({...p,mirrors:[{label:'Proxy EE · Scramjet',url:proxyUrl}]},0);toast('Abrindo via Proxy EE (Scramjet)…')}
+  else GameLauncher.launchPortal(p,idx);return}
   const av=e.target.closest('[data-avatar]'); if(av){ProfileStore.setProfile({avatar:av.dataset.avatar});renderProfile();return}
   const co=e.target.closest('[data-color]'); if(co){ProfileStore.setProfile({color:co.dataset.color});renderProfile();return}
   const mute=e.target.closest('[data-mute]'); if(mute){SocialHub.muteUser(mute.dataset.mute);renderChat();return}
