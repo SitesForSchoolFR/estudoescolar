@@ -62,7 +62,7 @@ function render(){
  if(isPortals){renderPortals();return}
  const list=filtered(); $('#results-count').textContent=list.length+' jogos encontrados';
  const slice=list.slice(0,shown);
- $('#games-grid').innerHTML=slice.map(g=>`<article class="game-card" data-id="${g.id}" tabindex="0">
+ $('#games-grid').innerHTML=slice.map((g,i)=>`<article class="game-card" style="--i:${i%24}" data-id="${g.id}" tabindex="0">
    <div class="card-cover">${coverHTML(g)}<span class="source-badge">${esc(SOURCES[g.s[0]]||g.s[0])}</span><button class="fav-btn ${ProfileStore.isFavorite(g.id)?'active':''}" data-fav="${g.id}" title="Favoritar" aria-label="Favoritar ${esc(g.n)}">♥</button></div>
    <div class="card-body"><h3>${esc(g.n)}</h3><p>${esc(g.d||'Jogue agora direto no navegador, sem instalar nada.')}</p><div class="card-meta"><span>${Math.round((g.p||0)/1000)}k jogadas</span><button class="open-btn" data-open="${g.id}">Abrir</button></div></div></article>`).join('')||'<div class="empty">Nenhum jogo encontrado. Favorite jogos clicando no coração.</div>';
  $('#load-more-wrap').hidden=shown>=list.length;
