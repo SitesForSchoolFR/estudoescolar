@@ -185,10 +185,11 @@
    * Generates the self-contained HTML shell written into the about:blank tab.
    * Inside it, the game ALWAYS runs inside <iframe id="game-iframe"> (100% viewport).
    */
-  function buildAboutBlankShell({ gameName, cloakTitle, cloakIcon, candidates, showHud, startIndex = 0 }) {
+  function buildAboutBlankShell({ gameName, cloakTitle, cloakIcon, candidates, showHud, layout, startIndex = 0 }) {
     const safeTitle = String(cloakTitle || 'Estudo Escolar — Atividade').replace(/[<>&"]/g, '');
     const safeIcon = String(cloakIcon || '').replace(/"/g, '%22');
     const payload = JSON.stringify({
+      layout: layout || 'wasd',
       gameName: gameName || 'Atividade',
       candidates,
       showHud: showHud !== false,
@@ -235,6 +236,15 @@
   .sm-box h1{font-size:22px;margin-bottom:12px}
   .sm-box p{font-size:15px;line-height:1.7;color:#334155;margin-bottom:14px}
   .sm-formula{background:#f1f5f9;border-left:4px solid #2563eb;padding:12px 16px;font-family:Georgia,serif;font-size:16px;margin:16px 0;border-radius:0 8px 8px 0}
+  /* Modo Celular/Android */
+  #touch-keys{position:fixed;left:0;right:0;bottom:0;z-index:40;display:none;flex-wrap:wrap;gap:8px;justify-content:center;padding:10px;background:linear-gradient(transparent,rgba(5,6,9,.9) 32%);touch-action:none}
+  body.mobile #touch-keys{display:flex}
+  body.mobile #study-mask{display:none!important}
+  body.mobile .spin{animation:none!important}
+  .kb{min-width:52px;height:52px;padding:0 12px;border-radius:12px;border:1px solid rgba(255,255,255,.35);background:rgba(18,22,28,.8);color:#fff;font-weight:700;font-size:.8rem;touch-action:none;user-select:none;-webkit-user-select:none;cursor:pointer}
+  .kb.on{background:#C8102E;border-color:#C8102E}
+  #kb-hint{position:fixed;bottom:88px;left:50%;transform:translateX(-50%);background:rgba(5,6,9,.88);color:#EDEFF2;padding:6px 12px;border-radius:8px;font-size:12px;z-index:41;display:none}
+  #hud-mobile.on{background:#7A0F1B;color:#fff;border-color:#C8102E}
 </style>
 </head>
 <body>
@@ -261,10 +271,14 @@
       <button class="hbtn" id="hud-reload" title="Recarregar jogo">↻</button>
       <button class="hbtn" id="hud-fs" title="Tela cheia">⛶ Tela Cheia</button>
       <button class="hbtn" id="hud-dl" title="Baixar HTML offline" style="display:none">↓ Offline</button>
+      <button class="hbtn" id="hud-mobile" title="Modo Celular/Android: página leve + teclado na tela">📱 Celular</button>
       <button class="hbtn" id="hud-panic" title="Disfarce de estudo (F9)">📘 Estudo</button>
       <button class="hbtn" id="hud-close" title="Fechar aba">✕</button>
     </div>
   </div>
+
+  <div id="kb-hint">Este servidor (jogo externo) não aceita o teclado touch. Toque direto no jogo.</div>
+  <div id="touch-keys"></div>
 
   <div id="study-mask">
     <div class="sm-box">
@@ -342,6 +356,45 @@
     }
     return html;
   }
+
+  // ===== Modo Celular/Android: página leve + teclado touch (WASD/F/R/Q etc.) =====
+  const KEYSETS = {
+    wasd: [['W','KeyW','w'],['A','KeyA','a'],['S','KeyS','s'],['D','KeyD','d'],['ESPAÇO','Space',' '],['F','KeyF','f'],['R','KeyR','r'],['Q','KeyQ','q'],['E','KeyE','e'],['SHIFT','ShiftLeft','Shift']],
+    setas: [['↑','ArrowUp','ArrowUp'],['←','ArrowLeft','ArrowLeft'],['↓','ArrowDown','ArrowDown'],['→','ArrowRight','ArrowRight'],['ESPAÇO','Space',' '],['F','KeyF','f'],['R','KeyR','r'],['SHIFT','ShiftLeft','Shift']],
+    corrida: [['↑ Acelerar','ArrowUp','ArrowUp'],['←','ArrowLeft','ArrowLeft'],['↓ Freio','ArrowDown','ArrowDown'],['→','ArrowRight','ArrowRight'],['ESPAÇO','Space',' '],['R','KeyR','r'],['SHIFT Nitro','ShiftLeft','Shift']]
+  };
+  const keysBox = document.getElementById('touch-keys');
+  const kbHint = document.getElementById('kb-hint');
+  let kbHintShown = false;
+  (KEYSETS[CFG.layout] || KEYSETS.wasd).forEach(([label, code, key]) => {
+    const b = document.createElement('button');
+    b.className = 'kb'; b.textContent = label;
+    const send = (type) => {
+      try {
+        const w = frame.contentWindow, doc = w.document;
+        const ev = new w.KeyboardEvent(type, { code, key, bubbles: true, cancelable: true });
+        (doc.activeElement || doc.body || doc).dispatchEvent(ev); doc.dispatchEvent(ev);
+      } catch (_) {
+        if (!kbHintShown) { kbHintShown = true; kbHint.style.display = 'block'; setTimeout(() => kbHint.style.display = 'none', 4000); }
+      }
+    };
+    const down = (e) => { e.preventDefault(); b.classList.add('on'); try { frame.focus(); frame.contentWindow.focus(); } catch (_) {} send('keydown'); };
+    const up = (e) => { e.preventDefault(); b.classList.remove('on'); send('keyup'); };
+    b.addEventListener('touchstart', down, { passive: false });
+    b.addEventListener('touchend', up, { passive: false });
+    b.addEventListener('touchcancel', up, { passive: false });
+    b.addEventListener('mousedown', down);
+    b.addEventListener('mouseup', up);
+    b.addEventListener('mouseleave', up);
+    keysBox.appendChild(b);
+  });
+  const mobileBtn = document.getElementById('hud-mobile');
+  if (mobileBtn) mobileBtn.addEventListener('click', () => {
+    const on = document.body.classList.toggle('mobile');
+    mobileBtn.classList.toggle('on', on);
+    mobileBtn.textContent = on ? '📱 Celular ON' : '📱 Celular';
+    if (on) { hud.classList.remove('collapsed'); try { frame.focus(); } catch (_) {} }
+  });
 
   function resetFrame() {
     const nf = document.createElement('iframe');
@@ -550,6 +603,7 @@
       cloakIcon: cloak.icon,
       candidates,
       showHud: hudEnabled,
+      layout: options.layout || 'wasd',
       startIndex: options.startIndex || 0
     });
 
@@ -626,6 +680,7 @@
       if (!game) return null;
       const candidates = buildGameCandidates(game);
       const win = openInAboutBlank({
+        layout: (game.k || []).includes('corrida-esportes') ? 'corrida' : ((game.k || []).includes('plataforma') ? 'setas' : 'wasd'),
         gameName: game.n,
         candidates,
         startIndex: mirrorIndex
