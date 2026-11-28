@@ -175,6 +175,22 @@ function renderCredits(){
  $('#credits-list').innerHTML=list.map(c=>`<article class="credit-card" style="--portal:${c.color}"><h3>${esc(c.name)}</h3><span class="badge">${esc(c.countLabel)}</span><p><strong>${esc(c.role)}</strong></p><p>${esc(c.authors)}</p><small>${esc(c.notes)}</small>${c.url?`<br><a href="${esc(c.url)}" target="_blank" rel="noopener">Visitar fonte ↗</a>`:''}</article>`).join('');
  $('#credits-footer-list').innerHTML=list.map(c=>`<span>${esc(c.name)} — ${esc(c.authors)}</span>`).join('');
 }
+/* Fachada escolar: o site real só aparece com Shift+K+A (lembra na sessão) */
+(function gate(){
+ const gateEl=document.getElementById('gate'); if(!gateEl)return;
+ const unlock=()=>{ gateEl.hidden=true; document.body.classList.remove('locked'); try{sessionStorage.setItem('ee_gate','1')}catch(e){} const si=document.getElementById('search-input'); if(si)si.focus(); };
+ let open=false; try{open=sessionStorage.getItem('ee_gate')==='1'}catch(e){}
+ if(open){gateEl.hidden=true;return}
+ document.body.classList.add('locked');
+ const held=new Set();
+ addEventListener('keydown',e=>{
+   held.add(e.key.length===1?e.key.toUpperCase():e.key);
+   if(held.has('Shift')&&held.has('K')&&held.has('A')){held.clear();unlock()}
+   if(e.repeat)return;
+ },true);
+ addEventListener('keyup',e=>{held.delete(e.key.length===1?e.key.toUpperCase():e.key)},true);
+ addEventListener('blur',()=>held.clear());
+})();
 async function init(){
  ProfileStore.init();
  // engines need DOM
