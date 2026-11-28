@@ -32,12 +32,12 @@ jobs:
           echo -e "$code\t$u"
           SH
           chmod +x /tmp/check.sh
-          xargs -a /tmp/urls.txt -P 8 -I{} /tmp/check.sh {} > link-report2.tsv 2>/dev/null || true
+          xargs -d '\n' -a /tmp/urls.txt -P 16 -I{} /tmp/check.sh {} > link-report3.tsv 2>/dev/null || true
           wc -l link-report.tsv; sort link-report.tsv | uniq -c | sort -rn | head -15
       - name: Commit report
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add link-report2.tsv
-          git commit -m "temp: relatório bikesense (via Actions)" || echo "nada"
+          git add link-report3.tsv
+          git commit -m "temp: relatório final (via Actions)" || echo "nada"
           git push
