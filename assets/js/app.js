@@ -9,7 +9,7 @@ if(settings.accent==='#6366f1'&&settings.accent2==='#22d3ee'){settings.accent=DE
 let games=[],mirrors=null,collection='todos',query='',shown=60,currentGame=null,lbSort='xp';
 const COLLECTIONS=[
  {id:'todos',icon:'',label:'Todos os Jogos'},
- {id:'night',icon:'',label:'BlogPaste'},{id:'driveu7',icon:'',label:'Drive U-7'},{id:'bikesense',icon:'',label:'BikeSense'},{id:'famosos',icon:'',label:'Famosos'},{id:'favoritos',icon:'',label:'Favoritos'},{id:'joias',icon:'',label:'Joias Escondidas'},{id:'recentes',icon:'',label:'Recentes'},{id:'ports',icon:'',label:'Ports de PC/Console'},{id:'acao',icon:'',label:'Ação'},{id:'corrida-esportes',icon:'',label:'Corrida & Esportes'},{id:'plataforma',icon:'',label:'Plataforma'},{id:'estrategia',icon:'',label:'Estratégia'},{id:'terror',icon:'',label:'Terror'},{id:'ritmo',icon:'',label:'Ritmo / FNF'},{id:'retro',icon:'',label:'Retrô'},{id:'multiplayer',icon:'',label:'Multiplayer'},{id:'mundos',icon:'',label:'Mundos Abertos'}];
+ {id:'night',icon:'',label:'BlogPaste'},{id:'driveu7',icon:'',label:'Drive U-7'},{id:'bikesense',icon:'',label:'BikeSense'},{id:'famosos',icon:'',label:'Famosos'},{id:'tnf',icon:'',label:'Talvez Não Funcionando'},{id:'favoritos',icon:'',label:'Favoritos'},{id:'joias',icon:'',label:'Joias Escondidas'},{id:'recentes',icon:'',label:'Recentes'},{id:'ports',icon:'',label:'Ports de PC/Console'},{id:'acao',icon:'',label:'Ação'},{id:'corrida-esportes',icon:'',label:'Corrida & Esportes'},{id:'plataforma',icon:'',label:'Plataforma'},{id:'estrategia',icon:'',label:'Estratégia'},{id:'terror',icon:'',label:'Terror'},{id:'ritmo',icon:'',label:'Ritmo / FNF'},{id:'retro',icon:'',label:'Retrô'},{id:'multiplayer',icon:'',label:'Multiplayer'},{id:'mundos',icon:'',label:'Mundos Abertos'}];
 const SOURCES={night:'BlogPaste · Night.Games',driveu7:'Drive U-7 · Unblocked Games G+',bikesense:'BikeSense · Achroma',mantle:'Mantle · Mineral','gn-math':'GN-Math','gn-math-v2':'GN-Math v2',duckmath:'DuckMath',p2p:'P2P · WebSight',ported2browser:'Ported2Browser'};
 function saveSettings(){localStorage.setItem('ee_settings_v1',JSON.stringify(settings))}
 function toast(msg,type='info'){const t=document.createElement('div');t.className='toast '+type;t.textContent=msg;$('#toasts').appendChild(t);requestAnimationFrame(()=>t.classList.add('show'));setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),300)},3600)}
@@ -33,7 +33,8 @@ function applySettings(){
  chk('set-ripples',settings.ripples);chk('set-cursor-trail',settings.cursorTrail);chk('set-sound',settings.sound);chk('set-hud',settings.hud);chk('set-tilt',settings.tilt);set('set-density',settings.density);
 }
 function filtered(){
- let list=games.slice();
+ let list=games.filter(g=>collection==='tnf'?!!g.x:!g.x); // TNF: só na própria aba
+ if(collection==='tnf'){/* já filtrado acima */}
  if(collection==='favoritos'){const p=ProfileStore.get();list=list.filter(g=>p.favorites.includes(g.id))}
  else if(collection==='recentes'){const p=ProfileStore.get();const map=new Map(p.recents.map((r,i)=>[r.id,i]));list=list.filter(g=>map.has(g.id)).sort((a,b)=>map.get(a.id)-map.get(b.id))}
  else if(collection==='portais'){list=[]}
@@ -64,7 +65,7 @@ function render(){
  const slice=list.slice(0,shown);
  $('#games-grid').innerHTML=slice.map((g,i)=>`<article class="game-card" style="--i:${i%24}" data-id="${g.id}" tabindex="0">
    <div class="card-cover">${coverHTML(g)}<span class="source-badge">${esc(SOURCES[g.s[0]]||g.s[0])}</span><button class="fav-btn ${ProfileStore.isFavorite(g.id)?'active':''}" data-fav="${g.id}" title="Favoritar" aria-label="Favoritar ${esc(g.n)}">♥</button></div>
-   <div class="card-body"><h3>${esc(g.n)}</h3><p>${esc(g.d||'Jogue agora direto no navegador, sem instalar nada.')}</p><div class="card-meta"><span>${Math.round((g.p||0)/1000)}k jogadas</span><button class="open-btn" data-open="${g.id}">Abrir</button></div></div></article>`).join('')||'<div class="empty">Nenhum jogo encontrado. Favorite jogos clicando no coração.</div>';
+   <div class="card-body"><h3>${esc(g.n)}</h3><p>${esc(g.d||'Jogue agora direto no navegador, sem instalar nada.')}</p><div class="card-meta"><span>${g.x?'⚠ pode não funcionar · ':''}${Math.round((g.p||0)/1000)}k jogadas</span><button class="open-btn" data-open="${g.id}">Abrir</button></div></div></article>`).join('')||'<div class="empty">Nenhum jogo encontrado. Favorite jogos clicando no coração.</div>';
  $('#load-more-wrap').hidden=shown>=list.length;
  attachTilt();
 }
@@ -74,13 +75,65 @@ function renderPortals(){
 }
 function attachTilt(){if(!settings.tilt)return;$$('.game-card').forEach(c=>{c.onmousemove=e=>{const r=c.getBoundingClientRect();c.style.transform=`perspective(700px) rotateY(${(e.clientX-r.left)/r.width*6-3}deg) rotateX(${3-(e.clientY-r.top)/r.height*6}deg)`};c.onmouseleave=()=>c.style.transform=''})}
 function renderHero(){
- const f=games.filter(g=>g.f===1).sort((a,b)=>b.p-a.p).slice(0,8);
+ const f=games.filter(g=>g.f===1&&!g.x).sort((a,b)=>b.p-a.p).slice(0,8);
  $('#hero-track').innerHTML=f.map(g=>`<div class="hero-slide" data-hero="${g.id}" tabindex="0" role="button" aria-label="${esc(g.n)}">${coverHTML(g)}<div><h3>${esc(g.n)}</h3><p>${esc(g.d||'')}</p><span class="hero-open">Abrir</span></div></div>`).join('');
 }
 function renderNav(){
  $('#collections-nav').innerHTML=COLLECTIONS.map(c=>`<button class="nav-item ${collection===c.id?'active':''}" data-col="${c.id}">${c.icon} ${c.label} <span>${countFor(c.id)}</span></button>`).join('')+`<div class="nav-sep">Fontes</div>`+Object.entries(SOURCES).map(([id,l])=>`<button class="nav-item ${collection===id?'active':''}" data-col="${id}">${l} <span>${games.filter(g=>g.s.includes(id)).length}</span></button>`).join('')+`<button class="nav-item ${collection==='portais'?'active':''}" data-col="portais">Portais & Mirrors <span>${mirrors?mirrors.portals.length:5}</span></button>`;
 }
-function countFor(id){if(SOURCES[id])return games.filter(g=>g.s.includes(id)).length;if(id==='todos')return games.length;if(id==='favoritos')return ProfileStore.get().favorites.length;if(id==='recentes')return ProfileStore.get().recents.length;return games.filter(g=>g.k.includes(id)).length}
+function countFor(id){if(id==='tnf')return games.filter(g=>g.x).length;if(SOURCES[id])return games.filter(g=>g.s.includes(id)).length;if(id==='todos')return games.length;if(id==='favoritos')return ProfileStore.get().favorites.length;if(id==='recentes')return ProfileStore.get().recents.length;return games.filter(g=>g.k.includes(id)).length}
+function openMobile(g,startIdx){
+ const cands=GameLauncher.buildGameCandidates(g);
+ const cand=cands[startIdx]||cands[0];
+ if(!cand){toast('Sem servidor disponível para este jogo');return}
+ const win=window.open('about:blank','_blank');
+ if(!win){toast('Permita pop-ups para usar o Modo Celular');return}
+ const layout=(g.k||[]).includes('corrida-esportes')?'corrida':((g.k||[]).includes('plataforma')?'setas':'wasd');
+ const KEYS={
+  wasd:[['W','KeyW','w'],['A','KeyA','a'],['S','KeyS','s'],['D','KeyD','d'],['ESPAÇO','Space',' '],['F','KeyF','f'],['R','KeyR','r'],['Q','KeyQ','q'],['E','KeyE','e'],['SHIFT','ShiftLeft','Shift']],
+  setas:[['↑','ArrowUp','ArrowUp'],['←','ArrowLeft','ArrowLeft'],['↓','ArrowDown','ArrowDown'],['→','ArrowRight','ArrowRight'],['ESPAÇO','Space',' '],['F','KeyF','f'],['R','KeyR','r'],['SHIFT','ShiftLeft','Shift']],
+  corrida:[['↑ Acelerar','ArrowUp','ArrowUp'],['←','ArrowLeft','ArrowLeft'],['↓ Freio','ArrowDown','ArrowDown'],['→','ArrowRight','ArrowRight'],['ESPAÇO','Space',' '],['R','KeyR','r'],['SHIFT Nitro','ShiftLeft','Shift']]};
+ const btns=KEYS[layout].map(k=>`<button class="kb" data-code="${k[1]}" data-key="${k[2]}">${k[0]}</button>`).join('');
+ win.document.write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>${esc(g.n)} — Modo Celular</title><style>
+ *{box-sizing:border-box}html,body{margin:0;height:100%;background:#0B0D10;overflow:hidden;overscroll-behavior:none;font-family:system-ui,sans-serif}
+ #bar{position:fixed;top:0;left:0;right:0;height:40px;display:flex;align-items:center;gap:10px;padding:0 12px;background:rgba(11,13,16,.92);color:#EDEFF2;z-index:5;font-size:.82rem}
+ #bar b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ #bar button{background:#7A0F1B;color:#fff;border:0;border-radius:7px;padding:6px 12px;font-weight:700}
+ iframe{border:0;width:100%;height:100dvh;display:block;padding-top:40px;background:#000}
+ #keys{position:fixed;left:0;right:0;bottom:0;z-index:6;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:10px;background:linear-gradient(transparent,rgba(5,6,9,.88) 30%);touch-action:none}
+ .kb{min-width:52px;height:52px;padding:0 12px;border-radius:12px;border:1px solid rgba(255,255,255,.35);background:rgba(18,22,28,.78);color:#fff;font-weight:700;font-size:.8rem;touch-action:none;user-select:none;-webkit-user-select:none}
+ .kb.on{background:#C8102E;border-color:#C8102E}
+ #hint{position:fixed;bottom:86px;left:50%;transform:translateX(-50%);background:rgba(5,6,9,.85);color:#EDEFF2;padding:6px 12px;border-radius:8px;font-size:.75rem;z-index:6;display:none}
+ </style></head><body>
+ <div id="bar"><button onclick="location.reload()">Recarregar</button><b>${esc(g.n)}</b><span style="opacity:.65">Modo Celular · controles: ${layout.toUpperCase()}</span></div>
+ <iframe id="game" allow="fullscreen;gamepad;autoplay" allowfullscreen></iframe>
+ <div id="hint">Este servidor não aceita teclado touch (jogo externo). Toque no jogo para jogar.</div>
+ <div id="keys">${btns}</div>
+ <script>
+ var frame=document.getElementById('game'), src=${JSON.stringify(cand.url)}, type=${JSON.stringify(cand.type||'iframe')}, hintShown=false;
+ function send(type,code,key){
+   try{
+     var w=frame.contentWindow, doc=w.document;
+     var ev=new w.KeyboardEvent(type,{code:code,key:key,bubbles:true,cancelable:true});
+     (doc.activeElement||doc.body||doc).dispatchEvent(ev); doc.dispatchEvent(ev);
+   }catch(e){ if(!hintShown){hintShown=true;document.getElementById('hint').style.display='block';} }
+ }
+ document.querySelectorAll('.kb').forEach(function(b){
+   var down=function(e){e.preventDefault();b.classList.add('on');try{frame.focus();frame.contentWindow.focus();}catch(_){} send('keydown',b.dataset.code,b.dataset.key);};
+   var up=function(e){e.preventDefault();b.classList.remove('on');send('keyup',b.dataset.code,b.dataset.key);};
+   b.addEventListener('touchstart',down,{passive:false}); b.addEventListener('touchend',up,{passive:false}); b.addEventListener('touchcancel',up,{passive:false});
+   b.addEventListener('mousedown',down); b.addEventListener('mouseup',up); b.addEventListener('mouseleave',up);
+ });
+ if(type==='html'){
+   fetch(src).then(function(r){return r.text()}).then(function(html){
+     var base=src.slice(0,src.lastIndexOf('/')+1);
+     if(!/<base/i.test(html)) html=html.replace(/<head[^>]*>/i,function(m){return m+'<base href="'+base+'">'});
+     frame.srcdoc=html;
+   }).catch(function(){ frame.src=src; });
+ } else { frame.src=src; }
+ <\/script></body></html>`);
+ win.document.close();
+}
 function openGame(g){
  currentGame=g;
  $('#game-modal').hidden=false;
@@ -193,6 +246,7 @@ function bind(){
  document.addEventListener('click',e=>{if(!menuDrop.hidden&&!e.target.closest('.top-actions')){menuDrop.hidden=true;menuBtn.setAttribute('aria-expanded','false')}});
  menuDrop.addEventListener('click',()=>{menuDrop.hidden=true;menuBtn.setAttribute('aria-expanded','false')});}
  const focusBtn=$('#focus-btn'); if(focusBtn)focusBtn.onclick=()=>{settings.focus=!settings.focus;applySettings();toast(settings.focus?'Modo foco ativado: só busca e jogos':'Modo foco desativado')};
+ $('#mobile-btn').onclick=()=>{ if(!currentGame)return; const idx=Number($('#modal-mirrors').value||0); openMobile(currentGame,idx); };
  $('#profile-btn').onclick=()=>openModal('profile-modal'); $('#leaderboard-btn').onclick=()=>openModal('leaderboard-modal'); $('#studio-btn').onclick=()=>openModal('studio-modal'); $('#credits-btn').onclick=()=>openModal('credits-modal');
 }
 document.addEventListener('DOMContentLoaded',init);
