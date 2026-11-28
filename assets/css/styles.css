@@ -254,3 +254,6 @@ body.focus-mode .game-card p.card-focus-hide{display:none}
 .footer-credits .legal{font-size:.72rem;color:var(--faint);line-height:1.65;margin:12px 0 0;max-width:900px}
 .footer-credits .legal a{color:var(--muted)}
 .embed-code{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;font-size:.74rem;line-height:1.6;color:var(--muted);overflow-x:auto;text-align:left;white-space:pre}
+/* Destaques sem imagem (pedido): slide só de texto, mais baixo */
+.hero-slide{min-width:210px;max-width:230px}
+.hero-slide img{display:none}

@@ -76,7 +76,7 @@ function renderPortals(){
 function attachTilt(){if(!settings.tilt)return;$$('.game-card').forEach(c=>{c.onmousemove=e=>{const r=c.getBoundingClientRect();c.style.transform=`perspective(700px) rotateY(${(e.clientX-r.left)/r.width*6-3}deg) rotateX(${3-(e.clientY-r.top)/r.height*6}deg)`};c.onmouseleave=()=>c.style.transform=''})}
 function renderHero(){
  const f=games.filter(g=>g.f===1&&!g.x).sort((a,b)=>b.p-a.p).slice(0,8);
- $('#hero-track').innerHTML=f.map(g=>`<div class="hero-slide" data-hero="${g.id}" tabindex="0" role="button" aria-label="${esc(g.n)}">${coverHTML(g)}<div><h3>${esc(g.n)}</h3><p>${esc(g.d||'')}</p><span class="hero-open">Abrir</span></div></div>`).join('');
+ $('#hero-track').innerHTML=f.map(g=>`<div class="hero-slide" data-hero="${g.id}" tabindex="0" role="button" aria-label="${esc(g.n)}"><div><h3>${esc(g.n)}</h3><p>${esc(g.d||'')}</p><span class="hero-open">Abrir</span></div></div>`).join('');
 }
 function renderNav(){
  $('#collections-nav').innerHTML=COLLECTIONS.map(c=>`<button class="nav-item ${collection===c.id?'active':''}" data-col="${c.id}">${c.icon} ${c.label} <span>${countFor(c.id)}</span></button>`).join('')+`<div class="nav-sep">Fontes</div>`+Object.entries(SOURCES).map(([id,l])=>`<button class="nav-item ${collection===id?'active':''}" data-col="${id}">${l} <span>${games.filter(g=>g.s.includes(id)).length}</span></button>`).join('')+`<button class="nav-item ${collection==='portais'?'active':''}" data-col="portais">Portais & Mirrors <span>${mirrors?mirrors.portals.length:5}</span></button>`;
