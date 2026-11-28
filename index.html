@@ -3,12 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Estudo Escolar — Quizzes, Resumos e Atividades</title>
+<title>Estudo Escolar — Plataforma de Estudos: Quizzes, Resumos e Atividades</title>
 <meta name="description" content="Portal de estudos com quizzes, resumos, atividades interativas e jogos educativos para o recreio.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
+<!-- ===== Fachada escolar (disfarce). O site real abre com Shift+K+A ===== -->
+<div id="gate" role="main" aria-label="Portal de estudos">
+  <div class="gate-top">
+    <div class="gate-logo">✎ <strong>Estudo Escolar</strong><span>plataforma de estudos</span></div>
+    <nav class="gate-nav"><a href="#gate-series">Séries</a><a href="#gate-materias">Matérias</a><a href="#gate-enem">ENEM</a><a href="#gate-sobre">Sobre</a></nav>
+  </div>
+  <section class="gate-hero">
+    <span class="gate-tag">✦ FEITO PARA QUEM QUER APRENDER</span>
+    <h1>Do 1º ano à formatura,<br><em>um passo de cada vez.</em></h1>
+    <p>Quizzes, resumos e atividades para o Ensino Fundamental, Ensino Médio e a reta final do ENEM — no seu ritmo, sem pressa e sem pressão.</p>
+    <div class="gate-stats">
+      <div><strong>3</strong><span>matérias principais</span></div>
+      <div><strong>12</strong><span>anos e séries</span></div>
+      <div><strong>150+</strong><span>questões comentadas</span></div>
+      <div><strong>Grátis</strong><span>para sempre</span></div>
+    </div>
+  </section>
+  <section id="gate-series" class="gate-sec">
+    <h2>Escolha sua série</h2>
+    <p>Conteúdo organizado por etapa escolar, do primeiro ano até o terceirão.</p>
+    <div class="gate-grid">
+      <article><strong>1º ao 5º ano</strong><span>Fundamental I — base de leitura, escrita e operações.</span></article>
+      <article><strong>6º ao 9º ano</strong><span>Fundamental II — frações, equações, ciências e interpretação.</span></article>
+      <article><strong>1ª a 3ª série</strong><span>Ensino Médio — aprofundamento e revisão completa.</span></article>
+      <article><strong>Formatura & ENEM</strong><span>Simulados, redação e revisão final para o vestibular.</span></article>
+    </div>
+  </section>
+  <section id="gate-materias" class="gate-sec">
+    <h2>Matérias</h2>
+    <div class="gate-grid three">
+      <article><span class="gate-ico">∑</span><strong>Matemática</strong><span>De operações a equações: cada passo conta.</span></article>
+      <article><span class="gate-ico">Aa</span><strong>Português</strong><span>Palavras, textos, gramática e interpretação.</span></article>
+      <article><span class="gate-ico">✿</span><strong>Ciências</strong><span>Curiosidade é o começo de toda descoberta.</span></article>
+    </div>
+  </section>
+  <section id="gate-enem" class="gate-sec">
+    <h2>Reta final: ENEM e vestibulares</h2>
+    <p>Questões comentadas com explicação passo a passo, para você entender o porquê de cada resposta — errar faz parte do caminho.</p>
+    <div class="gate-quiz">
+      <strong>Questão de exemplo</strong>
+      <p>Quanto é 3/4 + 1/8?</p>
+      <small>3/4 equivale a 6/8; então 6/8 + 1/8 = <b>7/8</b>. Simples assim, um passo de cada vez.</small>
+    </div>
+  </section>
+  <section id="gate-sobre" class="gate-sec">
+    <h2>Seu espaço, seu jeito</h2>
+    <div class="gate-grid three">
+      <article><span class="gate-ico">◷</span><strong>Hora de focar</strong><span>Reserve 25 minutinhos só para você.</span></article>
+      <article><span class="gate-ico">✐</span><strong>Anotações</strong><span>Ideias e lembretes para revisar depois.</span></article>
+      <article><span class="gate-ico">✦</span><strong>Progresso</strong><span>Cada resposta certa é uma conquista.</span></article>
+    </div>
+  </section>
+  <footer class="gate-foot">
+    <strong>✿ Estudo Escolar</strong> — aprender pode ser uma das suas coisas favoritas. Feito com curiosidade no Brasil.<br>
+    <small>Conteúdo educacional gratuito para estudantes, famílias e professores.</small>
+  </footer>
+</div>
+
 <canvas id="bg-canvas"></canvas><div id="bg-custom-image"></div>
 <div id="cursor-dot"></div><div id="cursor-ring"></div><div id="cursor-trail"></div>
 
@@ -96,6 +154,7 @@
   <select id="modal-mirrors" style="width:100%"></select>
   <div class="modal-actions">
     <button class="btn primary" id="play-btn">Abrir em about:blank</button>
+    <button class="btn" id="mobile-btn">Modo Celular</button>
     <button class="btn" id="modal-fav">Favoritar</button>
     <button class="btn" id="download-btn">Baixar HTML</button>
     <button class="btn" id="share-btn">Compartilhar no chat</button>
